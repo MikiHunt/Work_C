@@ -12,16 +12,16 @@ int main()
     int Score[MaxStudent][MaxExam];
     srand((unsigned int) time(0));
     for(int r = 0 ; r < MaxStudent ; r++)
-    for(int c = 0 ; c < MaxExam ; c++)
-    Score[r][c] = rand() % 30 + 50;
-    cout << " ";
+        for(int c = 0 ; c < MaxExam ; c++)
+            Score[r][c] = rand() % 30 + 50;
+    cout << "          ";
     for(int c = 0 ; c < MaxExam ; c++) 
-    cout << " [" << c << "]";
+        cout << "  [" << c << "]";
     cout << endl;
     for(int r = 0 ; r < MaxStudent ; r++) {
-    cout << "Score[" << r << "] ";
-    for(int c = 0 ; c < MaxExam ; c++)
-    cout << setw(5) << Score[r][c];
+        cout << "Score[" << r << "] ";
+        for(int c = 0 ; c < MaxExam ; c++)
+            cout << setw(5) << Score[r][c];
     cout << endl;
     }
     cout << "\nLowest score :" << Minimum(Score,MaxStudent,MaxExam);
@@ -42,7 +42,7 @@ int Minimum(int Temp[ ][4],const int Students,const int Exam)
     int LowScore = 100;
     for(int r = 0 ; r < Students ; r++) {
         for(int c = 0 ; c < Exam ; c++)
-        if (Temp[r][c] < LowScore) LowScore = Temp[r][c];
+            if (Temp[r][c] < LowScore) LowScore = Temp[r][c];
     }
     return(LowScore);
 }
@@ -50,14 +50,14 @@ int Maximum(int Temp[ ][4],const int Students,const int Exam)
 {
     int HighScore = 0;
     for(int r = 0 ; r < Students ; r++) 
-    for(int c = 0 ; c < Exam ; c++)
-    if (Temp[r][c] > HighScore) HighScore = Temp[r][c];
+        for(int c = 0 ; c < Exam ; c++)
+            if (Temp[r][c] > HighScore) HighScore = Temp[r][c];
     return(HighScore);
 }
 double Average(int Temp[ ],const int Exam)
 {
     int Total = 0;
     for(int r = 0 ; r < Exam ; r++)
-    Total += Temp[r];
+        Total += Temp[r];
     return( (double) Total / Exam);
 }
