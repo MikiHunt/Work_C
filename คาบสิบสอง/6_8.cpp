@@ -13,7 +13,7 @@ int main()
     srand((unsigned int) time(0));
     for(int r = 0 ; r < MaxStudent ; r++)
         for(int c = 0 ; c < MaxExam ; c++)
-            Score[r][c] = rand() % 30 + 50;
+            Score[r][c] = rand() % 10;
     cout << "          ";
     for(int c = 0 ; c < MaxExam ; c++) 
         cout << "  [" << c << "]";

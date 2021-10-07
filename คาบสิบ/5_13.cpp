@@ -1,12 +1,12 @@
 #include <iostream>
-#include <string>
+#include <string.h>
 using namespace std;
 void ParseName(string &FirstName,string &LastName, const string FullName);
 int main()
 {
     string Name = "Stroustrup, Bjarne";
     string LastName, FirstName;
-    
+
     ParseName(FirstName,LastName,Name);
     Name = FirstName + " " + LastName;
     cout << "Name : " << Name << endl;
