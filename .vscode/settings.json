@@ -3,6 +3,10 @@
         "string_view": "cpp",
         "ostream": "cpp",
         "iostream": "cpp",
-        "limits": "cpp"
-    }
+        "limits": "cpp",
+        "algorithm": "cpp",
+        "iomanip": "cpp",
+        "*.tcc": "cpp"
+    },
+    "C_Cpp.errorSquiggles": "Disabled"
 }

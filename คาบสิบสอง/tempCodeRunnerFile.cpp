@@ -1,2 +1,1 @@
-
-               cout<<str[i]<<" = "<<str[length]<<endl;
+pre_num_std
