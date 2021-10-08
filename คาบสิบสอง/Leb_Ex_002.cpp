@@ -8,19 +8,15 @@ void input_num(int &num_std,int &r_std);
 int vote_or_nvote(int r_std);
 void cal(int pre_num_std,int num_std);
 void display(int y ,int num_vote[], int pre_num_std);
+void display2();
 int main(){
     int num_std,r_std,pre_num_std;
-    float vote,N_vote;
-    int Temp,Temp1;
     char u;
     srand((int) time(0));
     do{
     input_num(num_std,r_std);
     pre_num_std = vote_or_nvote(r_std);
-    cout<<"Result of election chairman"<<endl;
-    cout<<"----------------------------"<<endl;
-    cout<<"No.    Votes    Percent(%)"<<endl;
-    cout<<"----------------------------"<<endl;
+    display2();
     cal(pre_num_std,num_std);
     cout<<"\nPlase tye : ";cin>>u;
     system("cls");
@@ -74,4 +70,10 @@ void cal(int pre_num_std,int num_std){
 void display(int y ,int num_vote[], int pre_num_std){
 
     cout<<y<<"."<<"     "<<right<<setw(7)<<num_vote[y]<<"  "<<right<<setw(10)<< fixed <<setprecision(2)<<float((num_vote[y])*100)/float(pre_num_std)<<endl;
+}
+void display2(){
+    cout<<"Result of election chairman"<<endl;
+    cout<<"----------------------------"<<endl;
+    cout<<"No.    Votes    Percent(%)"<<endl;
+    cout<<"----------------------------"<<endl;
 }
