@@ -6,7 +6,7 @@
 using namespace std;
 void input_num(int &num_std,int &r_std);
 int vote_or_nvote(int r_std);
-void cal(int pre_num_std,int num_std);
+void cal_random_number(int pre_num_std,int num_std);
 void display(int y ,int num_vote[], int pre_num_std);
 void display2();
 int main(){
@@ -17,7 +17,7 @@ int main(){
     input_num(num_std,r_std);
     pre_num_std = vote_or_nvote(r_std);
     display2();
-    cal(pre_num_std,num_std);
+    cal_random_number(pre_num_std,num_std);
     cout<<"\nPlase tye : ";cin>>u;
     system("cls");
 }while(u =='Y'||u=='y');
@@ -39,7 +39,7 @@ int vote_or_nvote(int r_std){
     cout<<"Number of not Votes : "<<r_std-pre_num_std<<"  = "<<N_vote<<"%"<<endl;
     return pre_num_std;
 }
-void cal(int pre_num_std,int num_std){
+void cal_random_number(int pre_num_std,int num_std){
     int num_vote[99999],sum=0,sum1=0,sum2=0;
 
     int Temp=0,Temp1=0;    
