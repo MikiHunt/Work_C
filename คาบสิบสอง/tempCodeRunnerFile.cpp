@@ -1,1 +1,1 @@
-test2_std
+<<setprecision(2)

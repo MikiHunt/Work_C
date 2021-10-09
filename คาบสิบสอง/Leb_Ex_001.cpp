@@ -23,11 +23,7 @@ void IsPalindrome(char str[])
         for (int i = 0; i < length; i++)
         {   
             length--;
-            if (str[i]==str[length])
-            {  
-               //cout<<str[i]<<" = "<<str[length]<<endl;
-
-            }else if (str[i]!=str[length-1])
+             if (str[i]!=str[length-1])
             {
                 cout<<str[i]<<" = "<<str[length]<<endl;
                 break;

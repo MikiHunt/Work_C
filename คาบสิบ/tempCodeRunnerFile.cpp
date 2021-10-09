@@ -1,2 +1,1 @@
-
-    Fac = Factorial2(Value);
+setprecision(4)

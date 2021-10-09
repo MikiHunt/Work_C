@@ -10,7 +10,8 @@
         "typeindex": "cpp",
         "typeinfo": "cpp",
         "ratio": "cpp",
-        "list": "cpp"
+        "list": "cpp",
+        "type_traits": "cpp"
     },
     "C_Cpp.errorSquiggles": "Disabled"
 }
