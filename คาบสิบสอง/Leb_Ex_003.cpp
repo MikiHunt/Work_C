@@ -11,10 +11,8 @@ int main (){
     int id_std[21],test1_std[21],test2_std[21],test3_std[21];
     int total[21];
     string name[21];
-    int count=4;
+    int count=1;
     float avg1=0,avg2=0,avg3=0,avg4=0;
-    int temp1,temp2,temp3,temp4,temp5;
-    string temp6;
     for (int i = 0; i <= count; i++)
     {
         total[i]=getdata (id_std[i],name[i],test1_std[i],test2_std[i],test3_std[i],i+1);
@@ -86,8 +84,8 @@ int getdata (int &id_std,string &name,int &test1_std,int &test2_std,int &test3_s
 }
 
 void sortdata (int total[],int id_std[],int test1_std[],int test2_std[],int test3_std[],string name[],int count){
-    int temp1,temp2,temp3,temp4,temp5;
-    string temp6;
+    int temp1;
+    string temp2;
     for(int i=0;i<=count;i++)
         {		
             for(int j=i+1;j<=count;j++)
@@ -98,25 +96,25 @@ void sortdata (int total[],int id_std[],int test1_std[],int test2_std[],int test
                     total[i]=total[j];
                     total[j]=temp1;
 
-                    temp2  =id_std[i];
+                    temp1  =id_std[i];
                     id_std[i]=id_std[j];
-                    id_std[j]=temp2;
+                    id_std[j]=temp1;
 
-                    temp3  =test1_std[i];
+                    temp1  =test1_std[i];
                     test1_std[i]=test1_std[j];
-                    test1_std[j]=temp3;
+                    test1_std[j]=temp1;
 
-                    temp4  =test2_std[i];
+                    temp1  =test2_std[i];
                     test2_std[i]=test2_std[j];
-                    test2_std[j]=temp4;
+                    test2_std[j]=temp1;
 
-                    temp5  =test3_std[i];
+                    temp1  =test3_std[i];
                     test3_std[i]=test3_std[j];
-                    test3_std[j]=temp5;
+                    test3_std[j]=temp1;
 
-                    temp6  =name[i];
+                    temp2  =name[i];
                     name[i]=name[j];
-                    name[j]=temp6;
+                    name[j]=temp2;
                 }
             }
         }
@@ -140,5 +138,5 @@ void displaydata(int i,int id_std,int total,int test1_std,int test2_std,int test
 }
 void displaydata_avg(float avg1,float avg2, float avg3,float avg4){
 
-    cout<<setw(36)<<"Average of mark"<<right<<setw(15)<<avg1<<right<<setw(15)<<avg2<<right<<setw(15)<<avg3<<right<<setw(15)<<avg4;
+    cout<<setw(37)<<"Average of mark"<<right<<setw(15)<<avg1<<right<<setw(15)<<avg2<<right<<setw(15)<<avg3<<right<<setw(15)<<avg4;
 }
