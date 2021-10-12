@@ -3,9 +3,12 @@
 using namespace std;
 void IsPalindrome(char str[]);
 int main(){
+
     char text[20];
+
     cout<<"Enter text : ";cin>>text;
     IsPalindrome(text);
+    
     return 0;
 }
 void IsPalindrome(char str[])
