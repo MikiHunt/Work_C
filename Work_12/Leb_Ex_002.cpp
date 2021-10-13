@@ -35,7 +35,8 @@ void input_num(int &num_std,int &r_std){
 }
 int vote_or_nvote(int r_std){
 
-    int pre_num_std,vote,N_vote;
+    int pre_num_std;
+    float vote,N_vote;
 
     pre_num_std = rand()% r_std;
     vote=float(pre_num_std*100)/float(r_std);
@@ -79,12 +80,12 @@ void cal_random_number(int pre_num_std,int num_std){
         }
     }
 
-    cout<<"Total"<<setw(9)<<sum2<<right<<setw(12)<<float((sum2)*100)/float(pre_num_std);
+    cout<<"Total"<<setw(7)<<sum2<<right<<setw(12)<<float((sum2)*100)/float(pre_num_std);
 }
 
 void display(int y ,int num_vote[], int pre_num_std){
 
-    cout<<y<<"."<<"     "<<right<<setw(7)<<num_vote[y]<<"  "<<right<<setw(10)<< fixed <<setprecision(2)<<float((num_vote[y])*100)/float(pre_num_std)<<endl;
+    cout<<y<<"."<<"   "<<right<<setw(7)<<num_vote[y]<<"  "<<right<<setw(10)<< fixed <<setprecision(2)<<float((num_vote[y])*100)/float(pre_num_std)<<endl;
 
 }
 
