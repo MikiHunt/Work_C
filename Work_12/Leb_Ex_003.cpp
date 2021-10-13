@@ -116,7 +116,7 @@ void sortdata (int total[],int id_std[],int test1_std[],int test2_std[],int test
         {		
             for(int j=i+1;j<=count;j++)
             {
-                if(total[i]<total[j])
+                if(total[j]>total[i])
                 {
                     temp1  =total[i];
                     total[i]=total[j];
