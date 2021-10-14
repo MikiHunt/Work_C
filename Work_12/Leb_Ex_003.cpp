@@ -6,7 +6,7 @@ using namespace std;
 
 int getdata (int &id_std,string &name,int &test1_std,int &test2_std,int &test3_std,int i);
 void sortdata (int total[],int id_std[],int test1_std[],int test2_std[],int test3_std[],string name[],int count);
-void average(float &number1,float &number2,float &number3,float &number4,int count);
+void average(float &avg_test1_std,float &avg_test2_std,float &avg_test3_std,float &avg_total,int count);
 void displaydata(int i,int id_std,int total,int test1_std,int test2_std,int test3_std,string name);
 void displaydata_avg(float avg1,float avg2, float avg3,float avg4);
 
@@ -21,19 +21,18 @@ int main (){
     for (int i = 0; i < count; i++)
     {
         total[i]=getdata (id_std[i],name[i],test1_std[i],test2_std[i],test3_std[i],i+1);
-
-        avg1=avg1+test1_std[i];
-        avg2=avg2+test2_std[i];
-        avg3=avg3+test3_std[i];
-        avg4=avg4+total[i];
-        
+        cout<<endl;
+            avg1=avg1+test1_std[i];
+            avg2=avg2+test2_std[i];
+            avg3=avg3+test3_std[i];
+            avg4=avg4+total[i];
     }
     
     sortdata(total,id_std, test1_std, test2_std, test3_std, name, count);
     average(avg1,avg2,avg3,avg4,count);
 
     cout<<"------------------------------------------------------------------------------------------------------------"<<endl;
-    cout<<"No."<<setw(7)<<"Id"<<setw(16)<<"Name"<<"                    "<<"Test1(25%)"<<setw(14)<<"Test2(25%)"<<setw(14);
+    cout<<"No."<<setw(7)<<"Id"<<setw(16)<<"Name"<<"                   "<<"Test1(25%)"<<"  "<<setw(14)<<"Test2(25%)"<<setw(14);
     cout<<"Test3(50%)"<<setw(16)<<"Total(100%)"<<endl;
     cout<<"------------------------------------------------------------------------------------------------------------"<<endl;
 
@@ -147,19 +146,20 @@ void sortdata (int total[],int id_std[],int test1_std[],int test2_std[],int test
 }
 
 
-void average(float &number1,float &number2,float &number3,float &number4,int count){
+void average(float &avg_test1_std,float &avg_test2_std,float &avg_test3_std,float &avg_total,int count){
 
-    number1=number1/count;
-    number2=number2/count;
-    number3=number3/count;
-    number4=number4/count;
+
+    avg_test1_std=avg_test1_std/count;
+    avg_test2_std=avg_test2_std/count;
+    avg_test3_std=avg_test3_std/count;
+    avg_total=avg_total/count;
 }
 
 void displaydata(int i,int id_std,int total,int test1_std,int test2_std,int test3_std,string name){
     
-    cout <<right<<i<<right<<setw(10)<< id_std<<"           "<<setw(25)<<left<< name<<setw(15) <<fixed <<setprecision(2)<<float(test1_std);
-    cout<<setw(15)<<float(test2_std)<<setw(15)<<float(test3_std);
-    cout <<float(total)<<endl;
+    cout <<right<<setw(2)<<i<<right<<setw(8)<< id_std<<setw(15)<<right<< name<<setw(27)<<right <<fixed <<setprecision(2)<<float(test1_std);
+    cout<<setw(15)<<right<<float(test2_std)<<right<<setw(15)<<float(test3_std);
+    cout <<setw(15)<<right<<setprecision(2)<<float(total)<<endl;
 
 }
 void displaydata_avg(float avg1,float avg2, float avg3,float avg4){
