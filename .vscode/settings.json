@@ -11,7 +11,8 @@
         "typeinfo": "cpp",
         "ratio": "cpp",
         "list": "cpp",
-        "type_traits": "cpp"
+        "type_traits": "cpp",
+        "random": "cpp"
     },
     "C_Cpp.errorSquiggles": "Disabled"
 }
