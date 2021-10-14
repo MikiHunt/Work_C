@@ -30,7 +30,7 @@ int main (){
     }
     
     sortdata(total,id_std, test1_std, test2_std, test3_std, name, count);
-    average(avg1,avg2,avg3,avg4,count+1);
+    average(avg1,avg2,avg3,avg4,count);
 
     cout<<"------------------------------------------------------------------------------------------------------------"<<endl;
     cout<<"No."<<setw(7)<<"Id"<<setw(16)<<"Name"<<"                    "<<"Test1(25%)"<<setw(14)<<"Test2(25%)"<<setw(14);
@@ -118,29 +118,29 @@ void sortdata (int total[],int id_std[],int test1_std[],int test2_std[],int test
             {
                 if(total[j]>total[i])
                 {
-                    temp1  =total[i];
-                    total[i]=total[j];
-                    total[j]=temp1;
+                    temp1  = total[i];
+                    total[i] = total[j];
+                    total[j] = temp1;
 
-                    temp1  =id_std[i];
-                    id_std[i]=id_std[j];
-                    id_std[j]=temp1;
+                    temp1  = id_std[i];
+                    id_std[i] = id_std[j];
+                    id_std[j] = temp1;
 
-                    temp1  =test1_std[i];
-                    test1_std[i]=test1_std[j];
-                    test1_std[j]=temp1;
+                    temp1  = test1_std[i];
+                    test1_std[i] = test1_std[j];
+                    test1_std[j] = temp1;
 
-                    temp1  =test2_std[i];
-                    test2_std[i]=test2_std[j];
-                    test2_std[j]=temp1;
+                    temp1  = test2_std[i];
+                    test2_std[i] = test2_std[j];
+                    test2_std[j] = temp1;
 
-                    temp1  =test3_std[i];
-                    test3_std[i]=test3_std[j];
-                    test3_std[j]=temp1;
+                    temp1  = test3_std[i];
+                    test3_std[i] = test3_std[j];
+                    test3_std[j] = temp1;
 
-                    temp2  =name[i];
-                    name[i]=name[j];
-                    name[j]=temp2;
+                    temp2  = name[i];
+                    name[i] = name[j];
+                    name[j] = temp2;
                 }
             }
         }
