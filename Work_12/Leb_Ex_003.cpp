@@ -12,13 +12,13 @@ void displaydata_avg(float avg1,float avg2, float avg3,float avg4);
 
 int main (){
 
-    int id_std[21],test1_std[21],test2_std[21],test3_std[21];
-    int total[21];
-    string name[21];
-    int count=1;
+    int id_std[20],test1_std[20],test2_std[20],test3_std[20];
+    int total[20];
+    string name[20];
+    int count=20;
     float avg1=0,avg2=0,avg3=0,avg4=0;
 
-    for (int i = 0; i <= count; i++)
+    for (int i = 0; i < count; i++)
     {
         total[i]=getdata (id_std[i],name[i],test1_std[i],test2_std[i],test3_std[i],i+1);
 
@@ -37,7 +37,7 @@ int main (){
     cout<<"Test3(50%)"<<setw(16)<<"Total(100%)"<<endl;
     cout<<"------------------------------------------------------------------------------------------------------------"<<endl;
 
-    for(int i=0;i<=count;i++){
+    for(int i=0;i<count;i++){
             displaydata( i+1, id_std[i], total[i], test1_std[i], test2_std[i], test3_std[i], name[i]);
     }
 
@@ -112,9 +112,9 @@ void sortdata (int total[],int id_std[],int test1_std[],int test2_std[],int test
     int temp1;
     string temp2;
 
-    for(int i=0;i<=count;i++)
+    for(int i=0;i<count;i++)
         {		
-            for(int j=i+1;j<=count;j++)
+            for(int j=i+1;j<count;j++)
             {
                 if(total[j]>total[i])
                 {
