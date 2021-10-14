@@ -85,7 +85,7 @@ void cal_random_number(int pre_num_std,int num_std){
 
 void display(int y ,int num_vote[], int pre_num_std){
 
-    cout<<y<<"."<<"   "<<right<<setw(7)<<num_vote[y]<<"  "<<right<<setw(10)<< fixed <<setprecision(2)<<float((num_vote[y])*100)/float(pre_num_std)<<endl;
+    cout<<right<<setw(2)<<y<<right<<setw(1)<<"."<<right<<setw(9)<<num_vote[y]<<"  "<<right<<setw(10)<< fixed <<setprecision(2)<<float((num_vote[y])*100)/float(pre_num_std)<<endl;
 
 }
 

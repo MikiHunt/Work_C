@@ -157,7 +157,7 @@ void average(float &number1,float &number2,float &number3,float &number4,int cou
 
 void displaydata(int i,int id_std,int total,int test1_std,int test2_std,int test3_std,string name){
     
-    cout <<i<<right<<setw(10)<< id_std<<"           "<<setw(25)<<left<< name<<setw(15) <<fixed <<setprecision(2)<<float(test1_std);
+    cout <<right<<i<<right<<setw(10)<< id_std<<"           "<<setw(25)<<left<< name<<setw(15) <<fixed <<setprecision(2)<<float(test1_std);
     cout<<setw(15)<<float(test2_std)<<setw(15)<<float(test3_std);
     cout <<float(total)<<endl;
 

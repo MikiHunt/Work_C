@@ -20,8 +20,9 @@ void IsPalindrome(char str[])
         if(str[i] != str[length-i-1]){
             flag = 1;
             break;
-   }
-}
+        }
+    }
+
     if (flag) {
         for (int i = 0; i < length; i++)
         {   
@@ -40,5 +41,5 @@ void IsPalindrome(char str[])
             cout<<str[i]<<" = "<<str[i]<<endl;
         }
         cout << "Your text is a Palindrome." << endl; 
-    }
+    }s
 }
