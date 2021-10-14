@@ -41,5 +41,5 @@ void IsPalindrome(char str[])
             cout<<str[i]<<" = "<<str[i]<<endl;
         }
         cout << "Your text is a Palindrome." << endl; 
-    }s
+    }
 }
