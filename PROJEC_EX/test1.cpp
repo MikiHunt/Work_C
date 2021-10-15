@@ -18,93 +18,90 @@ void bookShopRecord();
 int main () 
 {
   main_menu();
-
-
-
   return 0;
 }
 //====================================================================
 void main_menu()
 {
-  int choice;
-  cout << "\n\n1. USER LOGIN";
-	cout << "\n2. ADMIN LOGIN";
-  cout << "\n\nEnter your choice : ";
-  cin>>choice;
-  switch (choice)
-  {
-  case 1:
-    login();
-    break;
-  case 2:
-    admin_login();
-    break;
-  default:
-    cout << "\n\nINVALID CHOICE\n";
+  	int choice;
+  	cout << "\n\n1. USER LOGIN";
+  	cout << "\n2. ADMIN LOGIN";
+  	cout << "\n\nEnter your choice : ";
+  	cin>>choice;
+  	switch (choice)
+  	{
+  		case 1:
+    		login();
+    		break;
+  		case 2:
+    		admin_login();
+    		break;
+  		default:
+    		cout << "\n\nINVALID CHOICE\n";
     
-  }
+  	}
 }
 void login()
 {
-  int count=0;
-  string user,pass,u,p;
-  system("cls");
-  cout<<"please enter the following details"<<endl;
-  cout<<"USERNAME :";
-  cin>>user;
-  cout<<"PASSWORD :";
-  cin>>pass;
+  	int count=0;
+  	string user,pass,u,p;
+  	system("cls");
+  	cout<<"please enter the following details"<<endl;
+  	cout<<"USERNAME :";
+  	cin>>user;
+  	cout<<"PASSWORD :";
+  	cin>>pass;
 
-  ifstream input("database.txt");
-  while(input>>u>>p)
-  {
-    if(u==user && p==pass)
-    {
-      count=1;
-      system("cls");
-    }
-  }
-  input.close();
-  if(count==1)
-  {
-    cout<<"\nHello "<<user<<"\nLOGIN SUCESS\nWe're glad that you're here.\nThanks for logging in\n";  
-  }
-  else
-  {
-    cout<<"\nLOGIN ERROR\nPlease check your username and password\n";
-    main();
-  }
+  	ifstream input("database.txt");
+  	while(input>>u>>p)
+  	{
+    	if(u==user && p==pass)
+    	{
+      		count=1;
+      		system("cls");
+    	}
+  	}
+	input.close();
+  	if(count==1)
+  	{
+    	cout<<"\nHello "<<user<<"\nLOGIN SUCESS\nWe're glad that you're here.\nThanks for logging in\n";  
+  	}
+  	else
+  	{
+    	cout<<"\nLOGIN ERROR\nPlease check your username and password\n";
+    	main();
+  	}
 }
 void admin_login()
 {
-  int count=0;
-  string user,pass,u,p;
-  system("cls");
-  cout<<"please enter the following details"<<endl;
-  cout<<"USERNAME :";
-  cin>>user;
-  cout<<"PASSWORD :";
-  cin>>pass;
+  	int count=0;
+  	string user,pass,u,p;
+  	system("cls");
+  	cout<<"please enter the following details"<<endl;
+  	cout<<"USERNAME :";
+  	cin>>user;
+  	cout<<"PASSWORD :";
+  	cin>>pass;
 
-  ifstream input("admin.txt");
-  while(input>>u>>p)
-  {
-    if(u==user && p==pass)
-    {
-      count=1;
-      system("cls");
-    }
-  }
-  input.close();
-  if(count==1)
-  {
-    bookShopRecord();  
-  }
-  else
-  {
-    cout<<"\nLOGIN ERROR\nPlease check your username and password\n";
-    main();
-  }
+  	ifstream input("admin.txt");
+  	while(input>>u>>p)
+  	{
+    	if(u==user && p==pass)
+    	{
+      		count=1;
+      		system("cls");
+    	}
+  		}
+  	input.close();
+  	if(count==1)
+  	{
+    	bookShopRecord();  
+  	}
+  	else
+  	{
+    	cout<<"\nLOGIN ERROR\nPlease check your username and password\n";
+    	main();
+  	}
 }
 void control_panel()
 {
@@ -132,7 +129,7 @@ void add_book()
 	cin >> a_name;
 	cout << "\nNo. of Books : ";
 	cin >> no_copy;
-  cout << "\nBooks Status: ";
+  	cout << "\nBooks Status: ";
 	cin >> b_status;
 
 	// Open file in append or
@@ -164,7 +161,7 @@ void show_book()
 				"Books\t\tStatus\n\n";
 		file >> b_id >> b_name;
 		file >> a_name >> no_copy;
-    file >> b_status;
+    	file >> b_status;
 
 		// Till end of file is reached
 		while (!file.eof()) {
@@ -223,7 +220,7 @@ void check_book()
 					<< a_name;
 				cout << "\nNo. of Books : "
 					<< no_copy;
-        cout << "\nBook Status : "
+        		cout << "\nBook Status : "
           << b_status;
 				cout << endl
 					<< endl;
@@ -353,7 +350,7 @@ void del_book()
 					<< "\n\n";
 			file >> b_idd >> b_name;
 			file >> a_name >> no_copy;
-      file >> b_status;
+      		file >> b_status;
 		}
 		if (count == 0)
 			cout << "\n\nBook ID "
@@ -372,7 +369,6 @@ void bookShopRecord()
 {
 	int choice;
 	char x;
-
 	while (1) {
     control_panel();
 		cout << "\nEnter your choice : ";
