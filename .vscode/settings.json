@@ -12,7 +12,9 @@
         "ratio": "cpp",
         "list": "cpp",
         "type_traits": "cpp",
-        "random": "cpp"
+        "random": "cpp",
+        "iosfwd": "cpp",
+        "fstream": "cpp"
     },
     "C_Cpp.errorSquiggles": "Disabled"
 }
