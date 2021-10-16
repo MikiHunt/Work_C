@@ -3,7 +3,7 @@
 #include <string>
 #include <sstream>
 using namespace std;
-//====================================================================
+
 void main_menu();
 void login();
 void admin_login();
@@ -17,16 +17,16 @@ void bookShopRecord();
 void registr();
 void user_menu();
 void book_borrowed_menu();
-//====================================================================
+
 int main () 
 {
-  main_menu();
-  return 0;
+	main_menu();
+	return 0;
 }
-//====================================================================
+
 void main_menu()
 {
-  	int choice;
+	int choice;
   	cout << "\n\n1. USER LOGIN";
 	cout << "\n2. REGISTR";
   	cout << "\n3. ADMIN LOGIN";
@@ -51,6 +51,7 @@ void main_menu()
     
   	}
 }
+
 void login()
 {
   	int count=0;
@@ -83,6 +84,7 @@ void login()
     	main();
   	}
 }
+
 void admin_login()
 {
   	int count=0;
@@ -102,7 +104,7 @@ void admin_login()
       		count=1;
       		system("cls");
     	}
-  		}
+  	}
   	input.close();
   	if(count==1)
   	{
@@ -115,6 +117,7 @@ void admin_login()
     	main();
   	}
 }
+
 void control_panel()
 {
 	system("cls");
@@ -126,6 +129,7 @@ void control_panel()
 	cout << "\n5. DELETE BOOK";
 	cout << "\n6. EXIT";
 }
+
 void add_book()
 {
 	system("cls");
@@ -147,13 +151,14 @@ void add_book()
 	// Open file in append or
 	// output mode
 	file.open("book.txt",
-			ios::out | ios::app);
+		ios::out | ios::app);
 	file << " " << b_id << " "
 		<< b_name << " " << a_name
 		<< " " << no_copy 
-    << " " << b_status << "\n";
+    	<< " " << b_status << "\n";
 	file.close();
 }
+
 void show_book()
 {
 	system("cls");
@@ -169,7 +174,7 @@ void show_book()
 	else {
 
 		cout << "\n\n\nBook ID\t\tBook"
-			<< "\t\tAuthor\t\tNo. of "
+			 << "\t\tAuthor\t\tNo. of "
 				"Books\t\tStatus\n\n";
 		file >> b_id >> b_name;
 		file >> a_name >> no_copy;
@@ -182,11 +187,11 @@ void show_book()
 				<< "\t\t" << b_name
 				<< "\t\t" << a_name
 				<< "\t\t" << no_copy
-        << "\t\t\t" << b_status
+        		<< "\t\t\t" << b_status
 				<< "\n\n";
 			file >> b_id >> b_name;
 			file >> a_name >> no_copy;
-      file >> b_status;
+      		file >> b_status;
 		}
 
 		system("pause");
@@ -195,6 +200,7 @@ void show_book()
 		file.close();
 	}
 }
+
 void check_book()
 {
 	system("cls");
@@ -203,7 +209,7 @@ void check_book()
 	string b_id, b_name, a_name, b_idd,b_status;
 
 	cout << "\n\n\t\t\t\tCheck "
-		<< "Particular Book";
+		 << "Particular Book";
 
 	// Open the file in input mode
 	file.open("book.txt", ios::in);
@@ -215,7 +221,7 @@ void check_book()
 		cin >> b_idd;
 		file >> b_id >> b_name;
 		file >> a_name >> no_copy;
-    file >> b_status;
+    	file >> b_status;
 
 		while (!file.eof()) {
 
@@ -233,7 +239,7 @@ void check_book()
 				cout << "\nNo. of Books : "
 					<< no_copy;
         		cout << "\nBook Status : "
-          << b_status;
+          			<< b_status;
 				cout << endl
 					<< endl;
 				count++;
@@ -241,7 +247,7 @@ void check_book()
 			}
 			file >> b_id >> b_name;
 			file >> a_name >> no_copy;
-      file >> b_status;
+      		file >> b_status;
 		}
 		system("pause");
 		file.close();
@@ -250,6 +256,7 @@ void check_book()
 				<< " Found...";
 	}
 }
+
 void update_book()
 {
 	system("cls");
@@ -260,7 +267,7 @@ void update_book()
 
 	cout << "\n\n\t\t\t\tUpdate Book Record";
 	file1.open("book1.txt",
-			ios::app | ios::out);
+		ios::app | ios::out);
 	file.open("book.txt", ios::in);
 
 	if (!file)
@@ -319,6 +326,7 @@ void update_book()
 	rename("book1.txt",
 		   "book.txt");
 }
+
 void del_book()
 {
 	system("cls");
@@ -341,7 +349,7 @@ void del_book()
 		cin >> b_id;
 		file >> b_idd >> b_name;
 		file >> a_name >> no_copy;
-    file >> b_status;
+    	file >> b_status;
 		while (!file.eof()) {
 
 			if (b_id == b_idd) {
@@ -358,7 +366,7 @@ void del_book()
 					<< " " << b_name
 					<< " " << a_name
 					<< " " << no_copy
-          << " " << b_status
+          			<< " " << b_status
 					<< "\n\n";
 			file >> b_idd >> b_name;
 			file >> a_name >> no_copy;
@@ -377,6 +385,7 @@ void del_book()
 	rename("book1.txt",
 		"book.txt");
 }
+
 void bookShopRecord()
 {
 	int choice;
@@ -422,6 +431,7 @@ void bookShopRecord()
 		}
 	}
 }
+
 void registr()
 {
 
@@ -439,6 +449,7 @@ void registr()
     cout<<"\nRegistration Sucessful\n\n";
     main();
 }
+
 void user_menu(){
 
 	system("cls");
@@ -450,6 +461,7 @@ void user_menu(){
 	cout << "\n5. DELETE BOOK";
 	cout << "\n6. EXIT";
 }
+
 void book_borrowed_menu()
 {
 	int choice;
