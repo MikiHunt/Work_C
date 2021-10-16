@@ -534,7 +534,7 @@ void borrow_books(string name)
 	day=local_time->tm_mday;
 	month=1 + local_time->tm_mon;
 	year=2443 + local_time->tm_year;
-	
+
 	// Open the file in input mode
 	file.open("book.txt", ios::in);
 	file1.open(trem=name+".txt",
@@ -564,7 +564,8 @@ void borrow_books(string name)
 				}
 			}else
 			{
-				cout << "Haven't put it on the bookshelf yet.";
+				cout << "\nHaven't put it on the bookshelf yet.";
+				break;
 			}
 			
 		}
