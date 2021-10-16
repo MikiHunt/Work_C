@@ -14,6 +14,9 @@ void check_book();
 void update_book();
 void del_book();
 void bookShopRecord();
+void registr();
+void user_menu();
+void book_borrowed_menu();
 //====================================================================
 int main () 
 {
@@ -25,7 +28,8 @@ void main_menu()
 {
   	int choice;
   	cout << "\n\n1. USER LOGIN";
-  	cout << "\n2. ADMIN LOGIN";
+	cout << "\n2. REGISTR";
+  	cout << "\n3. ADMIN LOGIN";
   	cout << "\n\nEnter your choice : ";
   	cin>>choice;
   	switch (choice)
@@ -34,10 +38,16 @@ void main_menu()
     		login();
     		break;
   		case 2:
-    		admin_login();
+    		registr();
     		break;
+		case 3:
+			admin_login();
+			break;
   		default:
     		cout << "\n\nINVALID CHOICE\n";
+			system("cls");
+			main_menu();
+			
     
   	}
 }
@@ -64,7 +74,8 @@ void login()
 	input.close();
   	if(count==1)
   	{
-    	cout<<"\nHello "<<user<<"\nLOGIN SUCESS\nWe're glad that you're here.\nThanks for logging in\n";  
+    	cout<<"\nHello "<<user<<"\nLOGIN SUCESS\n";  
+		book_borrowed_menu();
   	}
   	else
   	{
@@ -78,7 +89,7 @@ void admin_login()
   	string user,pass,u,p;
   	system("cls");
   	cout<<"please enter the following details"<<endl;
-  	cout<<"USERNAME :";
+  	cout<<"ADMINNAME :";
   	cin>>user;
   	cout<<"PASSWORD :";
   	cin>>pass;
@@ -95,18 +106,19 @@ void admin_login()
   	input.close();
   	if(count==1)
   	{
+		cout<<"\nHello "<<user<<"\nLOGIN SUCESS\n"; 
     	bookShopRecord();  
   	}
   	else
   	{
-    	cout<<"\nLOGIN ERROR\nPlease check your username and password\n";
+    	cout<<"\nLOGIN ERROR\nPlease check your adminname and password\n";
     	main();
   	}
 }
 void control_panel()
 {
 	system("cls");
-	cout << "\n\n\t\t\t\tCONTROL PANEL";
+	cout << "\n\n\t\t\t\tADMIN MENU";
 	cout << "\n\n1. ADD BOOK";
 	cout << "\n2. DISPLAY BOOKS";
 	cout << "\n3. CHECK PARTICULAR BOOK";
@@ -371,6 +383,79 @@ void bookShopRecord()
 	char x;
 	while (1) {
     control_panel();
+		cout << "\nEnter your choice : ";
+		cin >> choice;
+		switch (choice) {
+
+		case 1:
+			do {
+
+				add_book();
+				cout << "\n\nWant to add"
+					<< " another book? "
+						"(y/n) : ";
+				cin >> x;
+			} while (x == 'y');
+			break;
+
+		case 2:
+			show_book();
+			break;
+
+		case 3:
+			check_book();
+			break;
+		case 4:
+			update_book();
+			break;
+
+		case 5:
+			del_book();
+			break;
+
+		case 6:
+			exit(0);
+			break;
+
+		default:
+			cout << "\n\nINVALID CHOICE\n";
+		}
+	}
+}
+void registr()
+{
+
+    string reguser,regpass,ru,rp;
+    system("cls");
+    
+    cout<<"Enter the username :";
+    cin>>reguser;
+    cout<<"\nEnter the password :";
+    cin>>regpass;
+
+    ofstream reg("database.txt",ios::app);
+    reg<<reguser<<' '<<regpass<<endl;
+    system("cls");
+    cout<<"\nRegistration Sucessful\n\n";
+    main();
+}
+void user_menu(){
+
+	system("cls");
+	cout << "\n\n\t\t\t\tUSER MENU";
+	cout << "\n\n1. ADD BOOK";
+	cout << "\n2. DISPLAY BOOKS";
+	cout << "\n3. CHECK PARTICULAR BOOK";
+	cout << "\n4. UPDATE BOOK";
+	cout << "\n5. DELETE BOOK";
+	cout << "\n6. EXIT";
+}
+void book_borrowed_menu()
+{
+	int choice;
+	char x;
+	while (1) {
+    user_menu();
 		cout << "\nEnter your choice : ";
 		cin >> choice;
 		switch (choice) {
