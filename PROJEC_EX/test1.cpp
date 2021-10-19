@@ -58,7 +58,6 @@ void main_menu()
 			system("cls");
 			main_menu();
 			
-    
   	}
 }
 
@@ -72,17 +71,23 @@ void login()
   	cin>>user;
   	cout<<"PASSWORD :";
   	cin>>pass;
-
-  	ifstream input("user_from.txt");
-  	while(input>>u>>p)
-  	{
-    	if(u==user && p==pass)
-    	{
-      		count=1;
-      		system("cls");
-    	}
-  	}
-	input.close();
+	fstream file;
+	file.open("user_from.txt",ios::in);
+	if(!file)
+	{
+		cout << "\n\nFile Opening Error!";
+	}else{
+		
+		while(file>>u>>p)
+		{
+			if(u==user && p==pass)
+			{
+				count=1;
+				system("cls");
+			}
+		}
+	}
+	file.close();
   	if(count==1)
   	{
     	cout<<"\nHello "<<user<<"\nLOGIN SUCESS\n";  
@@ -105,17 +110,22 @@ void admin_login()
   	cin>>user;
   	cout<<"PASSWORD :";
   	cin>>pass;
+	fstream file;
+	file.open("admin.txt",ios::in);
+	if(!file){
+		cout << "\n\nFile Opening Error!";
+	}else{
 
-  	ifstream input("admin.txt");
-  	while(input>>u>>p)
-  	{
-    	if(u==user && p==pass)
-    	{
-      		count=1;
-      		system("cls");
-    	}
-  	}
-  	input.close();
+		while(file>>u>>p)
+		{
+			if(u==user && p==pass)
+			{
+				count=1;
+				system("cls");
+			}
+		}
+	}
+  	file.close();
   	if(count==1)
   	{
 		cout<<"\nHello "<<user<<"\nLOGIN SUCESS\n"; 
@@ -165,7 +175,8 @@ void add_book()
 	file << " " << b_id << " "
 		<< b_name << " " << a_name
 		<< " " << no_copy 
-    	<< " " << b_status << "\n";
+    	<< " " << b_status 
+		<< "\n\n";
 	file.close();
 }
 
@@ -523,7 +534,7 @@ void borrow_books(string name)
 	
 	system("cls");
 	show_book_all();
-	fstream file,file1;
+	fstream file,file1,file2;
 	int no_copy;
 	string b_id, b_name, a_name, b_idd,b_status;
 	string trem;
@@ -539,6 +550,7 @@ void borrow_books(string name)
 	file.open("book.txt", ios::in);
 	file1.open(trem=name+".txt",
 			ios::out | ios::app);
+	file2.open("book1.txt",ios::app | ios::out);
 
 	if (!file)
 		cout << "\n\nFile Opening Error!";
@@ -549,9 +561,11 @@ void borrow_books(string name)
 		file >> b_idd >> b_name;
 		file >> a_name >> no_copy;
     	file >> b_status;
-		while (!file.eof()) {
-			if (b_id == b_idd) {
-				if(b_status=="Y")
+		while (!file.eof()) 
+		{
+			if (b_id == b_idd)
+			{
+				if(b_status=="Y" && no_copy != 0)
 				{
 					file1 << " " << name << " " 
 					<< b_id << " "<< b_name 
@@ -561,17 +575,73 @@ void borrow_books(string name)
 					<< year << "\n\n";
 					cout<<"\nBorrowed Sucessful\n\n";
 					break;
+				}else{
+					cout << "\nOut stok";
+					break;
 				}
 			}else
 			{
 				cout << "\nHaven't put it on the bookshelf yet.";
 				break;
 			}
-			
 		}
 	}
 	file.close();
 	file1.close();
+	file.open("book.txt", ios::in);
+	if (!file)
+		cout << "\n\nFile Opening Error!";
+	else {
+		file >> b_idd >> b_name;
+		file >> a_name >> no_copy;
+    	file >> b_status;
+		while (!file.eof()) 
+		{
+			if (b_id == b_idd) 
+			{
+				if (b_status == "Y"){
+					if(no_copy != 0){
+						no_copy = no_copy - 1;
+						file2 << " " << b_id << " "
+							<< b_name << " "
+							<< a_name << " " << no_copy
+							<< " " << b_status
+							<< "\n\n";
+					}else
+						file2 << " " << b_idd
+						<< " " << b_name
+						<< " " << a_name
+						<< " " << no_copy
+						<< " " << b_status
+						<< "\n\n";
+				}else 
+					file2 << " " << b_idd
+					<< " " << b_name
+					<< " " << a_name
+					<< " " << no_copy
+          			<< " " << b_status
+					<< "\n\n";
+			}
+			else
+				file2 << " " << b_idd
+					<< " " << b_name
+					<< " " << a_name
+					<< " " << no_copy
+          			<< " " << b_status
+					<< "\n\n";
+			file >> b_idd >> b_name;
+			file >> a_name >> no_copy;
+      		file >> b_status;
+		}
+	}
+	
+	cout << endl;
+	file.close();
+	file2.close();
+	remove("book.txt");
+	rename("book1.txt",
+		   "book.txt");
+
 
 }
  
@@ -625,7 +695,7 @@ void show_book_all(){
 
 }
 void show_borrow_book(string name){
-	system("cls");
+	system( "cls" );
 	fstream file;
 	int no_copy;
 	string b_name, b_id, a_name,b_status;
@@ -658,7 +728,7 @@ void show_borrow_book(string name){
 			file >> a_name >> day;
 			file >> month >> year;
 		}
-		system("pause");
+		system( "pause" );
 		// Close the file
 		file.close();
 	}

@@ -15,7 +15,7 @@ int main (){
     int id_std[20],test1_std[20],test2_std[20],test3_std[20];
     int total[20];
     string name[20];
-    int count=20;
+    int count=1;
     float avg1=0,avg2=0,avg3=0,avg4=0;
 
     for (int i = 0; i < count; i++)
@@ -164,6 +164,6 @@ void displaydata(int i,int id_std,int total,int test1_std,int test2_std,int test
 }
 void displaydata_avg(float avg1,float avg2, float avg3,float avg4){
 
-    cout<<setw(37)<<"Average of mark"<<right<<setw(15)<<avg1<<right<<setw(15)<<avg2<<right<<setw(15)<<avg3<<right<<setw(15)<<avg4;
+    cout<<"Average of mark"<<right<<setw(37)<<avg1<<right<<setw(15)<<avg2<<right<<setw(15)<<avg3<<right<<setw(15)<<avg4;
     
 }
