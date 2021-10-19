@@ -1,1 +1,2 @@
-no_copy
+
+			file >> b_idd >> b_name;

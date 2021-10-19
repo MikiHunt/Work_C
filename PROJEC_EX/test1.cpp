@@ -20,15 +20,16 @@ void registr();
 void user_menu();
 void book_borrowed_menu(string name);
 void borrow_books(string name);
-void return_books();
+void return_books(string name);
 void check_borrow_book();
 void show_book_all();
 void show_borrow_book(string name);
+void show_borrow_book1(string name);
 
 int main () 
 {
 	main_menu();
-	return 0;
+	return 0; 
 }
 
 void main_menu()
@@ -147,7 +148,8 @@ void control_panel()
 	cout << "\n3. CHECK PARTICULAR BOOK";
 	cout << "\n4. UPDATE BOOK";
 	cout << "\n5. DELETE BOOK";
-	cout << "\n6. EXIT";
+	cout << "\n6. MENU";
+	cout << "\n7. EXIT";
 }
 
 void add_book()
@@ -442,8 +444,10 @@ void bookShopRecord()
 		case 5:
 			del_book();
 			break;
-
 		case 6:
+			main_menu();
+			break;
+		case 7:
 			exit(0);
 			break;
 
@@ -474,21 +478,24 @@ void registr()
 void user_menu()
 {
 
-	system("cls");
 	cout << "\n\n\t\t\t\tUSER MENU";
 	cout << "\n\n1. BORROW BOOKS";
 	cout << "\n2. RETURN BOOKS";
 	cout << "\n3. SHOW BORROW BOOKS";
 	cout << "\n4. UPDATE BOOK";
 	cout << "\n5. DELETE BOOK";
-	cout << "\n6. EXIT";
+	cout << "\n6. MENU";
+	cout << "\n7. EXIT";
 }
 
 void book_borrowed_menu(string name)
 {
 	int choice;
 	char x;
+	
 	while (1) {
+	system("cls");
+	cout<<"\nUSER NAME : "<<name;
     user_menu();
 		cout << "\nEnter your choice : ";
 		cin >> choice;
@@ -506,7 +513,16 @@ void book_borrowed_menu(string name)
 			break;
 
 		case 2:
-			return_books();
+			do
+			{
+				return_books(name);
+				cout << "\n\nWant to return"
+					<< " borrow book? "
+						"(y/n) : ";
+				cin >> x;
+			} while (x == 'y');
+			
+			
 			break;
 
 		case 3:
@@ -519,8 +535,10 @@ void book_borrowed_menu(string name)
 		case 5:
 			del_book();
 			break;
-
 		case 6:
+			main_menu();
+			break;
+		case 7:
 			exit(0);
 			break;
 
@@ -548,7 +566,7 @@ void borrow_books(string name)
 
 	// Open the file in input mode
 	file.open("book.txt", ios::in);
-	file1.open(trem=name+".txt",
+	file1.open(trem=name+"_borrow.txt",
 			ios::out | ios::app);
 	file2.open("book1.txt",ios::app | ios::out);
 
@@ -570,20 +588,22 @@ void borrow_books(string name)
 					file1 << " " << name << " " 
 					<< b_id << " "<< b_name 
 					<< " " << a_name
-					<< " " << day <<" /"
-					<< month << " /"
+					<< " " << day <<" "
+					<< month << " "
 					<< year << "\n\n";
 					cout<<"\nBorrowed Sucessful\n\n";
 					break;
 				}else{
-					cout << "\nOut stok";
+					cout << "\nOut stok or not on the bookshelf.";
 					break;
 				}
-			}else
-			{
-				cout << "\nHaven't put it on the bookshelf yet.";
-				break;
+				file >> b_idd >> b_name;
+				file >> a_name >> no_copy;
+				file >> b_status;
 			}
+			file >> b_idd >> b_name;
+			file >> a_name >> no_copy;
+      		file >> b_status;
 		}
 	}
 	file.close();
@@ -597,29 +617,13 @@ void borrow_books(string name)
     	file >> b_status;
 		while (!file.eof()) 
 		{
-			if (b_id == b_idd) 
+			if (b_id == b_idd && b_status == "Y" && no_copy != 0) 
 			{
-				if (b_status == "Y"){
-					if(no_copy != 0){
-						no_copy = no_copy - 1;
-						file2 << " " << b_id << " "
-							<< b_name << " "
-							<< a_name << " " << no_copy
-							<< " " << b_status
-							<< "\n\n";
-					}else
-						file2 << " " << b_idd
-						<< " " << b_name
-						<< " " << a_name
-						<< " " << no_copy
-						<< " " << b_status
-						<< "\n\n";
-				}else 
-					file2 << " " << b_idd
-					<< " " << b_name
-					<< " " << a_name
-					<< " " << no_copy
-          			<< " " << b_status
+				no_copy = no_copy - 1;
+				file2 << " " << b_id << " "
+					<< b_name << " "
+					<< a_name << " " << no_copy
+					<< " " << b_status
 					<< "\n\n";
 			}
 			else
@@ -641,21 +645,86 @@ void borrow_books(string name)
 	remove("book.txt");
 	rename("book1.txt",
 		   "book.txt");
-
-
 }
  
-void return_books()
+void return_books(string name)
 {
+	show_borrow_book1(name);
+	fstream file,file1,file2;
+	int day,month,year;
+	string b_id;
+	string b_idd,b_name,b_status,a_name;
+	int no_copy;
+	int r_day,r_month,r_year;
+	int b_day,b_month,b_year;
 
+	time_t ttime = time(0);
+	tm *local_time = localtime(&ttime);
+	day=local_time->tm_mday;
+	month=1 + local_time->tm_mon;
+	year=2443 + local_time->tm_year;
+
+	file.open(name+"_borrow.txt",ios::in);
+	file1.open(name+"_return_book.txt",ios::out | ios::app);
+	
+	if(!file)
+	{
+		cout << "\n\nFile Opening Error!";
+	}else{
+		cout << "\n\nList Borrow Book ID : ";
+		cin >> b_id;
+		cout << "\nDay Borrow Book : ";
+		cin >> b_day;
+		cout << "\nMonth Borrow Book : ";
+		cin >> b_month;
+		cout << "\nYear Borrow Book : ";
+		cin >> b_year;
+		file >> name >> b_idd;
+		file >> b_name >> a_name;
+		file >> r_day >> r_month;
+		file >> r_year;
+		while (!file.eof())
+		{
+			if (b_id == b_idd)
+			{
+				if(b_day == r_day && b_month == r_month && b_year == r_year)
+				{
+					file1 << " " << name << " "
+					<< b_id << " " << b_name 
+					<< " " << a_name << " "
+					<< day << " " << month
+					<< " " << year << " "
+					<< "Return Suscessful" << "\n\n";
+					cout<<"\nReturn book Sucessful\n\n";
+					break;
+				}else{
+					cout << "\nERROR";
+					break;
+				}
+				file >> name >> b_idd;
+				file >> b_name >> a_name;
+				file >> r_day >> r_month;
+				file >> r_year;
+			}
+			
+			file >> name >> b_idd;
+			file >> b_name >> a_name;
+			file >> r_day >> r_month;
+			file >> r_year;
+		}
+		
+	}
+	file.close();
+	file1.close();
 
 }
 
 void check_borrow_book(){
-
+	
 
 
 }
+
 void show_book_all(){
 	system("cls");
 	fstream file;
@@ -694,6 +763,7 @@ void show_book_all(){
 	}
 
 }
+
 void show_borrow_book(string name){
 	system( "cls" );
 	fstream file;
@@ -703,7 +773,7 @@ void show_borrow_book(string name){
 	string day,month,year;
 	cout << "\n\n\t\t\t\t\tAll BOOKS IS BORROW";
 
-	file.open(trem=name+".txt", ios::in);
+	file.open(trem=name+"_borrow.txt", ios::in);
 	if (!file)
 		cout << "\n\nFile Opening Error!";
 	else {
@@ -720,8 +790,8 @@ void show_borrow_book(string name){
 				<< "\t\t" << b_id
 				<< "\t\t" << b_name
 				<< "\t\t" << a_name
-				<< "\t\t" << day
-				<< month << year
+				<< "\t\t" << day <<"/"
+				<< month <<"/"<< year
 				<< "\n\n";
 
 			file >> name >> b_id >> b_name;
@@ -733,4 +803,43 @@ void show_borrow_book(string name){
 		file.close();
 	}
 
+}
+
+void show_borrow_book1(string name){
+	system( "cls" );
+	fstream file;
+	int no_copy;
+	string b_name, b_id, a_name,b_status;
+	string trem;
+	string day,month,year;
+	cout << "\n\n\t\t\t\t\tAll BOOKS IS BORROW";
+
+	file.open(trem=name+"_borrow.txt", ios::in);
+	if (!file)
+		cout << "\n\nFile Opening Error!";
+	else {
+
+		cout << "\n\n\nname\t\tBook ID\t\tBook"
+			 << "\t\tAuthor\t\t   Date"
+				"\n\n";
+		file >> name >> b_id >> b_name;
+		file >> a_name >> day ;
+		file >> month  >> year;
+		// Till end of file is reached
+		while (!file.eof()) {
+			cout << " " << name
+				<< "\t\t" << b_id
+				<< "\t\t" << b_name
+				<< "\t\t" << a_name
+				<< "\t\t" << day <<"/"
+				<< month <<"/"<< year
+				<< "\n\n";
+
+			file >> name >> b_id >> b_name;
+			file >> a_name >> day;
+			file >> month >> year;
+		}
+		// Close the file
+		file.close();
+	}
 }

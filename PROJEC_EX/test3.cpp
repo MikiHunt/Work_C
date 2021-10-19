@@ -1,69 +1,27 @@
-void update_book()
-{
-	system("cls");
-	fstream file, file1;
-	int no_copy, no_co, count = 0;
-	string b_name, b_na, a_name,b_status;
-	string a_na, b_idd, b_id,b_st;
-
-	cout << "\n\n\t\t\t\tUpdate Book Record";
-	file1.open("book1.txt",
-		ios::app | ios::out);
-	file.open("book.txt", ios::in);
-
-	if (!file)
-		cout << "\n\nFile Opening Error!";
-	else {
-
-		cout << "\n\nBook ID : ";
-		cin >> b_id;
-		file >> b_idd >> b_name;
-		file >> a_name >> no_copy;
-    	file >> b_status;
-
-		// Till end of file is reached
-		while (!file.eof()) {
-			if (b_id == b_idd) {
-				system("cls");
-				cout << "\t\t\t\t"
-					 << "Update Book Record";
-				cout << "\n\nNew Book Name : ";
-				cin >> b_na;
-				cout << "\nAuthor Name : ";
-				cin >> a_na;
-				cout << "\nNo. of Books : ";
-				cin >> no_co;
-				cout << "\nBook Status : ";
-				cin >> b_st;
-				file1 << " " << b_id << " "
-					<< b_na << " "
-					<< a_na << " " << no_co
-          			<< " " << b_st
-					<< "\n\n";
-				count++;
+#include <iostream>
+#include <ctime>
+using namespace std;
+int main(){
+	int day,month,year,tmp1;
+		time_t ttime = time(0);
+		tm *local_time = localtime(&ttime);
+		day=local_time->tm_mday;
+		month=1 + local_time->tm_mon;
+		year=2443 + local_time->tm_year;
+		day+=5;		
+		if (day > 30)
+		{
+			tmp1 = day-30;
+			month+=1;
+			
+			if (month >12)
+			{
+				year+=1;
 			}
-			else
-				file1 << " " << b_idd
-					<< " " << b_name
-					<< " " << a_name
-					<< " " << no_copy
-          			<< " " << b_status
-					<< "\n\n";
-			file >> b_idd >> b_name;
-			file >> a_name >> no_copy;
-      		file >> b_status;
+			cout << tmp1 << "/" << month << "/" << year;
+		}else
+		{
+			cout << day << "/" << month << "/" << year;
 		}
-		if (count == 0)
-			cout << "\n\nBook ID"
-				<< " Not Found...";
-	}
-	cout << endl;
-	system("pause");
-
-	// Close the files
-	file.close();
-	file1.close();
-	remove("book.txt");
-	rename("book1.txt",
-		   "book.txt");
+	return 0;
 }
