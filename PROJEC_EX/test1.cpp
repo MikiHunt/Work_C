@@ -25,6 +25,11 @@ void check_borrow_book();
 void show_book_all();
 void show_borrow_book(string name);
 void show_borrow_book1(string name);
+void show_return_book(string name);
+void show_all_user();
+void menu_update();
+void update_status_book();
+void update_stock_book();
 
 int main () 
 {
@@ -146,10 +151,11 @@ void control_panel()
 	cout << "\n\n1. ADD BOOK";
 	cout << "\n2. DISPLAY BOOKS";
 	cout << "\n3. CHECK PARTICULAR BOOK";
-	cout << "\n4. UPDATE BOOK";
+	cout << "\n4. MENU UPDATE";
 	cout << "\n5. DELETE BOOK";
-	cout << "\n6. MENU";
-	cout << "\n7. EXIT";
+	cout << "\n6. ALL USER";
+	cout << "\n7. MENU";
+	cout << "\n8. EXIT";
 }
 
 void add_book()
@@ -438,16 +444,19 @@ void bookShopRecord()
 			check_book();
 			break;
 		case 4:
-			update_book();
+			menu_update();
 			break;
 
 		case 5:
 			del_book();
 			break;
 		case 6:
-			main_menu();
+			show_all_user();
+			
 			break;
 		case 7:
+			main_menu();
+		case 8:
 			exit(0);
 			break;
 
@@ -459,17 +468,18 @@ void bookShopRecord()
 
 void registr()
 {
-
-    string reguser,regpass,ru,rp;
+    string reguser,regpass,reg_birthday;
     system("cls");
     
     cout<<"Enter the username :";
     cin>>reguser;
     cout<<"\nEnter the password :";
     cin>>regpass;
-
+	cout<<"\nEnter the Birthday :";
+    cin>>reg_birthday;
+    
     ofstream reg("user_from.txt",ios::app);
-    reg<<reguser<<' '<<regpass<<endl;
+    reg<<reguser<<" "<<regpass<<" "<<reg_birthday<<endl;
     system("cls");
     cout<<"\nRegistration Sucessful\n\n";
     main();
@@ -482,7 +492,7 @@ void user_menu()
 	cout << "\n\n1. BORROW BOOKS";
 	cout << "\n2. RETURN BOOKS";
 	cout << "\n3. SHOW BORROW BOOKS";
-	cout << "\n4. UPDATE BOOK";
+	cout << "\n4. SHOW RETURN BOOKS";
 	cout << "\n5. DELETE BOOK";
 	cout << "\n6. MENU";
 	cout << "\n7. EXIT";
@@ -529,7 +539,7 @@ void book_borrowed_menu(string name)
 			show_borrow_book(name);
 			break;
 		case 4:
-			update_book();
+			show_return_book(name);
 			break;
 
 		case 5:
@@ -657,6 +667,7 @@ void return_books(string name)
 	int no_copy;
 	int r_day,r_month,r_year;
 	int b_day,b_month,b_year;
+	int re_day,re_month,re_year;
 
 	time_t ttime = time(0);
 	tm *local_time = localtime(&ttime);
@@ -688,7 +699,7 @@ void return_books(string name)
 			if (b_id == b_idd)
 			{
 				if(b_day == r_day && b_month == r_month && b_year == r_year)
-				{
+				{	
 					file1 << " " << name << " "
 					<< b_id << " " << b_name 
 					<< " " << a_name << " "
@@ -701,28 +712,22 @@ void return_books(string name)
 					cout << "\nERROR";
 					break;
 				}
-				file >> name >> b_idd;
+				/*file >> name >> b_idd;
 				file >> b_name >> a_name;
 				file >> r_day >> r_month;
-				file >> r_year;
+				file >> r_year;*/
 			}
 			
 			file >> name >> b_idd;
 			file >> b_name >> a_name;
 			file >> r_day >> r_month;
 			file >> r_year;
+
 		}
+		file.close();
+		file1.close();
 		
 	}
-	file.close();
-	file1.close();
-
-}
-
-void check_borrow_book(){
-	
-
-
 }
 
 void show_book_all(){
@@ -842,4 +847,242 @@ void show_borrow_book1(string name){
 		// Close the file
 		file.close();
 	}
+}
+void show_return_book(string name){
+	system( "cls" );
+	fstream file;
+	int no_copy;
+	string b_name, b_id, a_name,b_status;
+	string trem;
+	string day,month,year;
+	string text1,text2;
+	cout << "\n\n\t\t\t\t\tAll BOOKS IS BORROW";
+
+	file.open(name+"_return_book.txt", ios::in);
+	if (!file)
+		cout << "\n\nFile Opening Error!";
+	else {
+
+		cout << "\n\n\nname\t\tBook ID\t\tBook"
+			 << "\t\tAuthor\t\tDate"
+			 << "\t\t\tStatus"
+				"\n\n";
+		file >> name >> b_id >> b_name;
+		file >> a_name >> day ;
+		file >> month  >> year;
+		file >> text1 >> text2;
+		// Till end of file is reached
+		while (!file.eof()) {
+			cout << " " << name
+				<< "\t\t" << b_id
+				<< "\t\t" << b_name
+				<< "\t\t" << a_name
+				<< "\t\t" << day <<"/"
+				<< month <<"/"<< year
+				<< " " << "\t\t"
+				<< text1 <<" "
+				<< text2
+				<< "\n\n";
+
+			file >> name >> b_id >> b_name;
+			file >> a_name >> day;
+			file >> month >> year;
+			file >> text1 >> text2;
+		}
+		system( "pause" );
+		// Close the file
+		file.close();
+	}
+
+}
+void show_all_user(){
+	system( "cls" );
+	fstream file;
+	string name , pass ,birthday;
+	
+	cout << "\n\n\t\t\t\t\tAll USER ";
+
+	file.open("user_from.txt", ios::in);
+	if (!file)
+		cout << "\n\nFile Opening Error!";
+	else {
+
+		cout << "\n\n\nNAME\t\tPASS\t\tBIRTHDAY"
+			 << "\n\n";
+		file >> name >> pass >> birthday;
+		// Till end of file is reached
+		while (!file.eof()) {
+			cout << " " << name
+				<< "\t\t" << pass
+				<< "\t\t" << birthday
+				<< "\n\n";
+
+			file >> name >> pass >> birthday;
+		}
+		system( "pause" );
+		// Close the file
+		file.close();
+
+	}
+
+}
+void menu_update(){
+	int choice;
+	char x;
+	
+	while (1) {
+		system("cls");
+		cout << "\n\n\t\t\t\tUPDATE MENU";
+		cout << "\n\n1. UPDATE BOOK ";
+		cout << "\n2. UPDATE BOOK STATUS";
+		cout << "\n3. UPDATE BOOK STOCK";
+		cout << "\n4. ADMIN MENU";
+			cout << "\nEnter your choice : ";
+		cin >> choice;
+		switch (choice) {
+
+		case 1:
+			update_book();
+			break;
+
+		case 2:
+			update_status_book();
+			break;
+		case 3:
+			update_stock_book();
+		case 4:
+			bookShopRecord();
+			break;
+		default:
+			cout << "\n\nINVALID CHOICE\n";
+		}
+	}
+	                    
+}
+void update_status_book()
+{
+	system("cls");
+	fstream file, file1;
+	int no_copy, no_co, count = 0;
+	string b_name, b_na, a_name,b_status;
+	string a_na, b_idd, b_id,b_st;
+
+	cout << "\n\n\t\t\t\tUpdate Book Record";
+	file1.open("book1.txt",
+		ios::app | ios::out);
+	file.open("book.txt", ios::in);
+
+	if (!file)
+		cout << "\n\nFile Opening Error!";
+	else {
+
+		cout << "\n\nBook ID : ";
+		cin >> b_id;
+		file >> b_idd >> b_name;
+		file >> a_name >> no_copy;
+    	file >> b_status;
+
+		// Till end of file is reached
+		while (!file.eof()) {
+			if (b_id == b_idd) {
+				system("cls");
+				cout << "\t\t\t\t"
+					 << "Update Book Record";
+				cout << "\nBook Status : ";
+				cin >> b_st;
+				file1 << " " << b_idd << " "
+					<< b_name << " "
+					<< a_name << " " << no_copy
+          			<< " " << b_st
+					<< "\n\n";
+				count++;
+			}
+			else
+				file1 << " " << b_idd
+					<< " " << b_name
+					<< " " << a_name
+					<< " " << no_copy
+          			<< " " << b_status
+					<< "\n\n";
+			file >> b_idd >> b_name;
+			file >> a_name >> no_copy;
+      		file >> b_status;
+		}
+		if (count == 0)
+			cout << "\n\nBook ID"
+				<< " Not Found...";
+	}
+	cout << endl;
+	system("pause");
+
+	// Close the files
+	file.close();
+	file1.close();
+	remove("book.txt");
+	rename("book1.txt",
+		   "book.txt");
+
+}
+void update_stock_book()
+{
+	system("cls");
+	fstream file, file1;
+	int no_copy, no_co, count = 0;
+	string b_name, b_na, a_name,b_status;
+	string a_na, b_idd, b_id,b_st;
+
+	cout << "\n\n\t\t\t\tUpdate Book Record";
+	file1.open("book1.txt",
+		ios::app | ios::out);
+	file.open("book.txt", ios::in);
+
+	if (!file)
+		cout << "\n\nFile Opening Error!";
+	else {
+
+		cout << "\n\nBook ID : ";
+		cin >> b_id;
+		file >> b_idd >> b_name;
+		file >> a_name >> no_copy;
+    	file >> b_status;
+
+		// Till end of file is reached
+		while (!file.eof()) {
+			if (b_id == b_idd) {
+				system("cls");
+				cout << "\t\t\t\t"
+					 << "Update Book Record";
+				cout << "\nNo. of Books : ";
+				cin >> no_co;
+				file1 << " " << b_idd << " "
+					<< b_name << " "
+					<< a_name << " " << no_co
+          			<< " " << b_status
+					<< "\n\n";
+				count++;
+			}
+			else
+				file1 << " " << b_idd
+					<< " " << b_name
+					<< " " << a_name
+					<< " " << no_copy
+          			<< " " << b_status
+					<< "\n\n";
+			file >> b_idd >> b_name;
+			file >> a_name >> no_copy;
+      		file >> b_status;
+		}
+		if (count == 0)
+			cout << "\n\nBook ID"
+				<< " Not Found...";
+	}
+	cout << endl;
+	system("pause");
+
+	// Close the files
+	file.close();
+	file1.close();
+	remove("book.txt");
+	rename("book1.txt",
+		   "book.txt");
 }

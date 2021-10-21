@@ -5,10 +5,10 @@ int main(){
 	int day,month,year,tmp1;
 		time_t ttime = time(0);
 		tm *local_time = localtime(&ttime);
-		day=local_time->tm_mday;
+		day=15+local_time->tm_mday;
 		month=1 + local_time->tm_mon;
 		year=2443 + local_time->tm_year;
-		day+=5;		
+		//day+=5;
 		if (day > 30)
 		{
 			tmp1 = day-30;
@@ -23,5 +23,6 @@ int main(){
 		{
 			cout << day << "/" << month << "/" << year;
 		}
+
 	return 0;
 }
