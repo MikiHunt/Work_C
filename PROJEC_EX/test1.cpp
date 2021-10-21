@@ -32,14 +32,18 @@ void update_status_book();
 void update_stock_book();
 
 int main () 
-{
+{	
+	
 	main_menu();
 	return 0; 
+
 }
 
 void main_menu()
 {
+	system("cls");
 	int choice;
+	cout << "\n\t\t\tMAIN MENU";
   	cout << "\n\n1. USER LOGIN";
 	cout << "\n2. REGISTR";
   	cout << "\n3. ADMIN LOGIN";
@@ -70,7 +74,7 @@ void main_menu()
 void login()
 {
   	int count=0;
-  	string user,pass,u,p;
+  	string user,pass,u,p,n,s,d;
   	system("cls");
   	cout<<"please enter the following details"<<endl;
   	cout<<"USERNAME :";
@@ -84,7 +88,7 @@ void login()
 		cout << "\n\nFile Opening Error!";
 	}else{
 		
-		while(file>>u>>p)
+		while(file>>u>>p>>n>>s>>d)
 		{
 			if(u==user && p==pass)
 			{
@@ -109,7 +113,7 @@ void login()
 void admin_login()
 {
   	int count=0;
-  	string user,pass,u,p;
+  	string user,pass,u,p,r;
   	system("cls");
   	cout<<"please enter the following details"<<endl;
   	cout<<"ADMINNAME :";
@@ -122,9 +126,9 @@ void admin_login()
 		cout << "\n\nFile Opening Error!";
 	}else{
 
-		while(file>>u>>p)
+		while(file>>u>>p>>r)
 		{
-			if(u==user && p==pass)
+			if(u==user && p==pass && r == "A")
 			{
 				count=1;
 				system("cls");
@@ -468,18 +472,24 @@ void bookShopRecord()
 
 void registr()
 {
-    string reguser,regpass,reg_birthday;
+    string reguser,regpass,reg_birthday,reg_name,reg_surname;
     system("cls");
     
     cout<<"Enter the username :";
     cin>>reguser;
     cout<<"\nEnter the password :";
     cin>>regpass;
+	cout<<"\nEnter the Name :";
+    cin>>reg_name;
+	cout<<"\nEnter the surname :";
+    cin>>reg_surname;
 	cout<<"\nEnter the Birthday :";
     cin>>reg_birthday;
     
     ofstream reg("user_from.txt",ios::app);
-    reg<<reguser<<" "<<regpass<<" "<<reg_birthday<<endl;
+    reg <<reguser<<" "<<regpass<<" "
+		<< reg_name << " " <<reg_surname
+		<< " " <<reg_birthday<<endl;
     system("cls");
     cout<<"\nRegistration Sucessful\n\n";
     main();
@@ -496,6 +506,7 @@ void user_menu()
 	cout << "\n5. DELETE BOOK";
 	cout << "\n6. MENU";
 	cout << "\n7. EXIT";
+
 }
 
 void book_borrowed_menu(string name)
@@ -898,7 +909,7 @@ void show_return_book(string name){
 void show_all_user(){
 	system( "cls" );
 	fstream file;
-	string name , pass ,birthday;
+	string user , pass ,birthday , name , surname;
 	
 	cout << "\n\n\t\t\t\t\tAll USER ";
 
@@ -907,17 +918,19 @@ void show_all_user(){
 		cout << "\n\nFile Opening Error!";
 	else {
 
-		cout << "\n\n\nNAME\t\tPASS\t\tBIRTHDAY"
+		cout << "\n\n\nUSER\t\tPASS\t\tNAME\t\tSURNAME\t\tBIRTHDAY"
 			 << "\n\n";
-		file >> name >> pass >> birthday;
+		file >> user >> pass >> name >> surname >> birthday;
 		// Till end of file is reached
 		while (!file.eof()) {
-			cout << " " << name
+			cout << " " << user
 				<< "\t\t" << pass
-				<< "\t\t" << birthday
+				<< "\t\t" << name
+				<< "\t\t" << surname
+				<< "\t\t" <<birthday
 				<< "\n\n";
 
-			file >> name >> pass >> birthday;
+			file >> user >> pass >> name >> surname >> birthday;
 		}
 		system( "pause" );
 		// Close the file
