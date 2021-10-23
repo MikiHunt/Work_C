@@ -9,7 +9,7 @@ using namespace std;
 void main_menu();
 void login();
 void admin_login();
-void control_panel();
+void admin_control_panel();
 void add_book();
 void show_book();
 void check_book();
@@ -75,13 +75,15 @@ void login()
 {
   	int count=0;
   	string user,pass,u,p,n,s,d;
+	fstream file;
+	
   	system("cls");
   	cout<<"please enter the following details"<<endl;
   	cout<<"USERNAME :";
   	cin>>user;
   	cout<<"PASSWORD :";
   	cin>>pass;
-	fstream file;
+	
 	file.open("user_from.txt",ios::in);
 	if(!file)
 	{
@@ -105,7 +107,8 @@ void login()
   	}
   	else
   	{
-    	cout<<"\nLOGIN ERROR\nPlease check your username and password\n";
+    	cout<<"\nLOGIN ERROR\nPlease your username and password\n";
+		system("pause");
     	main();
   	}
 }
@@ -114,13 +117,15 @@ void admin_login()
 {
   	int count=0;
   	string user,pass,u,p,r;
+	fstream file;
+	  
   	system("cls");
   	cout<<"please enter the following details"<<endl;
   	cout<<"ADMINNAME :";
   	cin>>user;
   	cout<<"PASSWORD :";
   	cin>>pass;
-	fstream file;
+	
 	file.open("admin.txt",ios::in);
 	if(!file){
 		cout << "\n\nFile Opening Error!";
@@ -143,12 +148,13 @@ void admin_login()
   	}
   	else
   	{
-    	cout<<"\nLOGIN ERROR\nPlease check your adminname and password\n";
+    	cout<<"\nLOGIN ERROR\nPlease check adminname and password\n";
+		system("pause");
     	main();
   	}
 }
 
-void control_panel()
+void admin_control_panel()
 {
 	system("cls");
 	cout << "\n\n\t\t\t\tADMIN MENU";
@@ -168,6 +174,7 @@ void add_book()
 	fstream file;
 	int no_copy;
 	string b_name, a_name, b_id,b_status;
+
 	cout << "\n\n\t\t\t\tADD BOOKS";
 	cout << "\n\nBook ID : ";
 	cin >> b_id;
@@ -182,13 +189,16 @@ void add_book()
 
 	// Open file in append or
 	// output mode
+
 	file.open("book.txt",
 		ios::out | ios::app);
+
 	file << " " << b_id << " "
 		<< b_name << " " << a_name
 		<< " " << no_copy 
     	<< " " << b_status 
 		<< "\n\n";
+		
 	file.close();
 }
 
@@ -226,11 +236,13 @@ void show_book()
 			file >> a_name >> no_copy;
       		file >> b_status;
 		}
+		// Close the file
+		file.close();
 
 		system("pause");
 
-		// Close the file
-		file.close();
+		
+		
 	}
 }
 
@@ -487,9 +499,9 @@ void registr()
     cin>>reg_birthday;
     
     ofstream reg("user_from.txt",ios::app);
-    reg <<reguser<<" "<<regpass<<" "
-		<< reg_name << " " <<reg_surname
-		<< " " <<reg_birthday<<endl;
+    reg <<r eguser << " " << regpass << " "
+		<< reg_name << " " << reg_surname
+		<< " " << reg_birthday <<endl;
     system("cls");
     cout<<"\nRegistration Sucessful\n\n";
     main();
@@ -834,6 +846,15 @@ void return_books(string name)
 			}
 		}
 	}
+	cout << endl;
+	file.close();
+	file2.close();
+	string text1,text2;
+	text1 = name+"_borrow.txt";
+	text2 = name+"_borrow1.txt";
+	remove(text1.c_str());
+	rename(text2.c_str(),
+		   text1.c_str());
 	
 }
 
