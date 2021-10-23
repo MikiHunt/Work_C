@@ -535,12 +535,14 @@ void book_borrowed_menu(string name)
 
 		case 2:
 			do
-			{
+			{	
+
 				return_books(name);
 				cout << "\n\nWant to return"
 					<< " borrow book? "
 						"(y/n) : ";
 				cin >> x;
+				
 			} while (x == 'y');
 			
 			
@@ -578,18 +580,18 @@ void borrow_books(string name)
 	string b_id, b_name, a_name, b_idd,b_status;
 	string trem;
 	int day,month,year;
-
+		
 	time_t ttime = time(0);
 	tm *local_time = localtime(&ttime);
 	day=local_time->tm_mday;
-	month=1 + local_time->tm_mon;
+	month=0 + local_time->tm_mon;
 	year=2443 + local_time->tm_year;
 
 	// Open the file in input mode
 	file.open("book.txt", ios::in);
 	file1.open(trem=name+"_borrow.txt",
-			ios::out | ios::app);
-	file2.open("book1.txt",ios::app | ios::out);
+			ios::out | ios::app | ios::in);
+	
 
 	if (!file)
 		cout << "\n\nFile Opening Error!";
@@ -602,10 +604,12 @@ void borrow_books(string name)
     	file >> b_status;
 		while (!file.eof()) 
 		{
+			
 			if (b_id == b_idd)
 			{
 				if(b_status=="Y" && no_copy != 0)
-				{
+				{	
+					
 					file1 << " " << name << " " 
 					<< b_id << " "<< b_name 
 					<< " " << a_name
@@ -625,11 +629,14 @@ void borrow_books(string name)
 			file >> b_idd >> b_name;
 			file >> a_name >> no_copy;
       		file >> b_status;
+			
 		}
+		
 	}
 	file.close();
 	file1.close();
 	file.open("book.txt", ios::in);
+	file2.open("book1.txt",ios::app | ios::out);
 	if (!file)
 		cout << "\n\nFile Opening Error!";
 	else {
@@ -707,26 +714,92 @@ void return_books(string name)
 		file >> r_year;
 		while (!file.eof())
 		{
-			if (b_id == b_idd)
+			if (b_id == b_idd && b_day == r_day && b_month == r_month && b_year == r_year)
 			{
-				if(b_day == r_day && b_month == r_month && b_year == r_year)
-				{	
-					file1 << " " << name << " "
-					<< b_id << " " << b_name 
-					<< " " << a_name << " "
-					<< day << " " << month
-					<< " " << year << " "
-					<< "Return Suscessful" << "\n\n";
-					cout<<"\nReturn book Sucessful\n\n";
-					break;
-				}else{
-					cout << "\nERROR";
-					break;
+				
+				re_day = r_day;
+				re_month = r_month;
+				re_year = r_year;
+				if(re_month == 1 || re_month == 3 || re_month == 5 ||
+				re_month == 7 || re_month == 8 || re_month == 10 ||
+				re_month == 12 )
+				{
+					re_day += 5;
+					if (re_day > 31)
+					{
+						re_day -= 31;
+						re_month += 1;
+						if (re_month > 12)
+						{
+							re_month = 1;
+							re_year += 1;
+						}
+					}
+				
+				}else if (re_month == 4 || re_month == 6 || re_month == 9 
+				|| re_month == 11)
+				{
+					re_day = r_day;
+					re_month = r_month;
+					re_year = r_year;
+					re_day += 5;
+					if (re_day > 30)
+					{
+						re_day -= 30;
+						re_month += 1;
+						if (re_month > 12)
+						{
+							re_month = 1;
+							re_year += 1;
+						}	
+					}
+				}else if (re_month == 2)
+				{
+					re_day = r_day;
+					re_month = r_month;
+					re_year = r_year;
+					re_day += 5;
+					if (re_day > 28)
+					{
+						re_day -= 28;
+						re_month += 1;
+						if (re_month > 12)
+						{
+							re_month = 1;
+							re_year += 1;
+						}
+					}
 				}
-				/*file >> name >> b_idd;
-				file >> b_name >> a_name;
-				file >> r_day >> r_month;
-				file >> r_year;*/
+				
+				if (day <= re_day || day >=re_day && month <= re_month)
+				{
+					if (year <= re_year)
+					{
+						file1 << " "  << name << " "
+						<< b_id << " " << b_name 
+						<< " " << a_name << " "
+						<< day << " " << month
+						<< " " << year << " "
+						<< "Return Suscessful"
+						<< " " << re_day << " "
+						<< re_month << " " 
+						<< re_year << "\n\n";
+						cout<<"\nReturn book Sucessful\n\n";
+						break;
+					} 
+					
+				}else{
+					int sum_day,sum_month,sum_year;
+					sum_day = day - re_day;
+					if (month > re_month)
+					{
+						sum_month = month - re_month;
+
+					}
+					
+
+				}
+				
 			}
 			
 			file >> name >> b_idd;
@@ -874,7 +947,7 @@ void show_return_book(string name){
 		cout << "\n\nFile Opening Error!";
 	else {
 
-		cout << "\n\n\nname\t\tBook ID\t\tBook"
+		cout << "\n\n\nLIST\t\tUSERNAME\t\tBook ID\t\tBook"
 			 << "\t\tAuthor\t\tDate"
 			 << "\t\t\tStatus"
 				"\n\n";

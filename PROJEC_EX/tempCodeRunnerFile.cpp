@@ -1,1 +1,2 @@
-user_from
+
+	day=local_time->tm_mday;
