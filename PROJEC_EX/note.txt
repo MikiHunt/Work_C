@@ -1,15 +1,38 @@
-1 = 31
-2 = 28
-3 = 31
-4 = 30
-5 = 31
-6 = 30
-7 = 31
-8 = 31
-9 = 30
-10 = 31
-11 = 30
-12 = 31
-
-28 / 10 /2564 
-5 / 12 /2564
+    file.open("book.txt", ios::in);
+	file2.open("book1.txt",ios::app | ios::out);
+	if (!file)
+		cout << "\n\nFile Opening Error!";
+	else {
+		file >> b_idd >> b_name;
+		file >> a_name >> no_copy;
+    	file >> b_status;
+		while (!file.eof()) 
+		{
+			if (b_id == b_idd && b_status == "Y" && no_copy != 0) 
+			{
+				no_copy = no_copy - 1;
+				file2 << " " << b_id << " "
+					<< b_name << " "
+					<< a_name << " " << no_copy
+					<< " " << b_status
+					<< "\n\n";
+			}
+			else
+				file2 << " " << b_idd
+					<< " " << b_name
+					<< " " << a_name
+					<< " " << no_copy
+          			<< " " << b_status
+					<< "\n\n";
+			file >> b_idd >> b_name;
+			file >> a_name >> no_copy;
+      		file >> b_status;
+		}
+	}
+	
+	cout << endl;
+	file.close();
+	file2.close();
+	remove("book.txt");
+	rename("book1.txt",
+		   "book.txt");
