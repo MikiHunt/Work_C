@@ -30,6 +30,7 @@ void show_all_user();
 void menu_update();
 void update_status_book();
 void update_stock_book();
+void sortdata (int total[] , int count);
 
 int main () 
 {	
@@ -436,7 +437,7 @@ void bookShopRecord()
 	int choice;
 	char x;
 	while (1) {
-    control_panel();
+    admin_control_panel();
 		cout << "\nEnter your choice : ";
 		cin >> choice;
 		switch (choice) {
@@ -499,7 +500,7 @@ void registr()
     cin>>reg_birthday;
     
     ofstream reg("user_from.txt",ios::app);
-    reg <<r eguser << " " << regpass << " "
+    reg << reguser << " " << regpass << " "
 		<< reg_name << " " << reg_surname
 		<< " " << reg_birthday <<endl;
     system("cls");
@@ -515,7 +516,7 @@ void user_menu()
 	cout << "\n2. RETURN BOOKS";
 	cout << "\n3. SHOW BORROW BOOKS";
 	cout << "\n4. SHOW RETURN BOOKS";
-	cout << "\n5. DELETE BOOK";
+	
 	cout << "\n6. MENU";
 	cout << "\n7. EXIT";
 
@@ -589,18 +590,22 @@ void borrow_books(string name)
 	fstream file,file1,file2;
 	int no_copy;
 	string b_id, b_name, a_name, b_idd,b_status;
-	string trem;
-	int day,month,year;
+	int day,month,year,hour,min,sec;
+	int count;
+
 
 	time_t ttime = time(0);
 	tm *local_time = localtime(&ttime);
+	tm *ltm = localtime(&ttime);
 	day=local_time->tm_mday;
-	month=1 + local_time->tm_mon;
-	year=2443 + local_time->tm_year;
-
+	month= 1 + local_time->tm_mon;
+	year = 2443 + local_time->tm_year;
+	hour = ltm->tm_hour;
+	min = ltm->tm_min;
+	sec = ltm->tm_sec;
 	// Open the file in input mode
 	file.open("book.txt", ios::in);
-	file1.open(trem=name+"_borrow.txt",ios::out | ios::app);
+	file1.open(name+"_borrow.txt",ios::out | ios::app);
 	
 	if (!file)
 		cout << "\n\nFile Opening Error!";
@@ -617,13 +622,17 @@ void borrow_books(string name)
 			{
 				if(b_status=="Y" && no_copy != 0)
 				{	
-					
-					file1 << " " << name << " " 
+					int o = 0;
+					file1 << " " << o << " " 
+					<< name << " " 
 					<< b_id << " "<< b_name 
 					<< " " << a_name
 					<< " " << day <<" "
 					<< month << " "
-					<< year << "\n\n" ;
+					<< year << " " 
+					<< hour << " "
+					<< min << " "
+					<< sec << "\n\n" ;
 					cout<<"\nBorrowed Sucessful\n\n";
 					break;
 				}else{
@@ -634,6 +643,7 @@ void borrow_books(string name)
 				file >> a_name >> no_copy;
 				file >> b_status;
 			}
+			
 			file >> b_idd >> b_name;
 			file >> a_name >> no_copy;
       		file >> b_status;
@@ -642,6 +652,148 @@ void borrow_books(string name)
 	}
 	file.close();
 	file1.close();
+
+	fstream file3,file4,file5;
+	string re_name,re_bid,re_bname,re_aname;
+	int re_day,re_month,re_year,re_hour,re_min,re_sec;
+	file3.open(name+"_borrow.txt",ios::in);
+	file4.open(name+"_borrow1.txt", ios::out | ios::app);
+	file5.open("book.txt", ios::in);
+	int p = 0;
+	int temp1;
+	int i=0;
+	int total[10000];
+	int total1[10000];
+	if (!file3)
+	{
+		cout << "\n\nFile Opening Error!";
+	}else{
+		file3 >> count >> re_name;
+		file3 >> re_bid >> re_bname;
+		file3 >> re_aname >> re_day;
+		file3 >> re_month >> re_year;
+		file3 >> re_hour >> re_min;
+		file3 >> re_sec;
+		file5 >> b_idd >> b_name;
+		file5 >> a_name >> no_copy;
+		file5 >> b_status;
+		
+		while (!file3.eof())
+		{	
+			count=count+1;
+			file4 << " " <<  count << " "
+				<< re_name << " " 
+				<< re_bid << " "
+				<< re_bname << " "
+				<< re_aname << " "
+				<< re_day << " "
+				<< re_month << " "
+				<< re_year << " "
+				<< re_hour << " "
+				<< re_min << " "
+				<< re_sec << "\n\n";
+			total[i] = count ;
+			i = i + 1;
+			
+			
+
+			file3 >> count >> re_name;
+			file3 >> re_bid >> re_bname;
+			file3 >> re_aname >> re_day;
+			file3 >> re_month >> re_year;
+			file3 >> re_hour >> re_min;
+			file3 >> re_sec;
+			file5 >> b_idd >> b_name;
+			file5 >> a_name >> no_copy;
+			file5 >> b_status;
+		}
+		
+		for (int i = 0; i < total[0]; i++)
+		{
+			total1[i]=total[i];
+		}
+		int i, tmp;
+		do
+    	{
+			if(i < total[0]-1 && total1[i] > total1[i+1])
+			{
+				tmp = total1[i+1];
+				total1[i+1] = total1[i];
+				total1[i] = tmp;
+				i = 0;
+			}
+			else
+			{
+				i++;
+			}
+			
+		}while(i < total[0]);
+		for (int i = 0; i < total[0]; i++)
+		{
+			cout << "[" << i << "]" << count << " / ";
+			cout << total1[i]<<endl;
+		}
+	}
+	file3.close();
+	file4.close();
+	file5.close();
+	string term1,term2;
+	term1 = name + "_borrow.txt";
+	term2 = name + "_borrow1.txt";
+	remove(term1.c_str());
+	rename(term2.c_str(),
+		   term1.c_str());
+
+	//===========================================================
+	fstream file6,file7;
+	file6.open(name+"_borrow.txt",ios::in | ios::app);
+	file7.open(name+"_show_borrow1.txt", ios::out | ios::app);
+	i=0;
+	if (!file6)
+	{
+		cout << "\n\nFile Opening Error!";
+	}else{
+		file6 >> count >> re_name;
+		file6 >> re_bid >> re_bname;
+		file6 >> re_aname >> re_day;
+		file6 >> re_month >> re_year;
+		file6 >> re_hour >> re_min;
+		file6 >> re_sec;
+		while (!file6.eof())
+		{	
+
+			file7<< " " <<  total1[i] << " "
+				<< re_name << " " 
+				<< re_bid << " "
+				<< re_bname << " "
+				<< re_aname << " "
+				<< re_day << " "
+				<< re_month << " "
+				<< re_year << " "
+				<< re_hour << " "
+				<< re_min << " "
+				<< re_sec << "\n\n";
+			i++;
+			file6 >> count >> re_name;
+			file6 >> re_bid >> re_bname;
+			file6 >> re_aname >> re_day;
+			file6 >> re_month >> re_year;
+			file6 >> re_hour >> re_min;
+			file6 >> re_sec;
+		}
+	}
+	file6.close();
+	file7.close();
+	string term3,term4;
+	term3 = name + "_show_borrow.txt";
+	term4 = name + "_show_borrow1.txt";
+	remove(term3.c_str());
+	rename(term4.c_str(),
+		   term3.c_str());
+
+
+	//=========================================================
+
 	file.open("book.txt", ios::in);
 	file2.open("book1.txt",ios::app | ios::out);
 	if (!file)
@@ -681,180 +833,122 @@ void borrow_books(string name)
 	rename("book1.txt",
 		   "book.txt");
 }
- 
+void sortdata (int total[] , int count){
+	int temp1;
+    for(int i=0;i<count;i++)
+        {		
+            for(int j=i+1;j<count;j++)
+            {
+                if(total[j]<total[i])
+                {
+                    temp1  = total[i];
+                    total[i] = total[j];
+                    total[j] = temp1;
+				}
+			}
+		}
+}
 void return_books(string name)
 {
 	show_borrow_book1(name);
 	fstream file,file1,file2;
-	int day,month,year;
-	string b_id;
-	string b_idd,b_name,b_status,a_name;
+	int day,month,year,hour,min,sec;
+	int List_id;
+	
 	int no_copy;
-	int r_day,r_month,r_year;
 	int b_day,b_month,b_year;
-	int re_day,re_month,re_year;
-	int num;
+	int r_day,r_month,r_year;
+	
+	string re_name,re_bname,re_aname;
+	int re_bid;
+	int re_day,re_month,re_year,re_hour,re_min,re_sec;
+	int count;
+
+	string re_name1,re_bid1,re_bname1,re_aname1;
+	int re_day1,re_month1,re_year1,re_hour1,re_min1,re_sec1;
+	int count1; 
 	string text;
 
 	time_t ttime = time(0);
 	tm *local_time = localtime(&ttime);
+	tm *ltm = localtime(&ttime);
 	day=local_time->tm_mday;
 	month= 1 + local_time->tm_mon;
 	year=2443 + local_time->tm_year;
-
-	file.open(name+"_borrow.txt",ios::in);
+	hour = ltm->tm_hour;
+	min = ltm->tm_min;
+	sec = ltm->tm_sec;
+	file.open(name+"_show_borrow.txt",ios::in);
 	file1.open(name+"_return_book.txt",ios::out | ios::app);
-	
+	file2.open(name+"_return_book.txt",ios::in);
+
 	if(!file)
 	{
 		cout << "\n\nFile Opening Error!";
 	}else{
 		cout << "\n\nList Borrow Book ID : ";
-		cin >> b_id;
-		cout << "\nDay Borrow Book : ";
-		cin >> b_day;
-		cout << "\nMonth Borrow Book : ";
-		cin >> b_month;
-		cout << "\nYear Borrow Book : ";
-		cin >> b_year;
-		file >> name >> b_idd;
-		file >> b_name >> a_name;
-		file >> r_day >> r_month;
-		file >> r_year >> text;
+		cin >> List_id;
+		
+		file >> count >> re_name;
+		file >> re_bid >> re_bname;
+		file >> re_aname >> re_day;
+		file >> re_month >> re_year;
+		file >> re_hour >> re_min;
+		file >> re_sec;
+
+		file2 >> count1 >> re_name1;
+		file2 >> re_bid1 >> re_bname1;
+		file2 >> re_aname1 >> re_day1;
+		file2 >> re_month1 >> re_year1;
+		file2 >> re_hour1 >> re_min1;
+		file2 >> re_sec1 >> text;
 		while (!file.eof())
 		{
-			if (b_id == b_idd && b_day == r_day && b_month == r_month && b_year == r_year )
+			if (List_id == count && count1 != count)
 			{
+				file1<< " " <<  count << " "
+					<< re_name << " " 
+					<< re_bid << " "
+					<< re_bname << " "
+					<< re_aname << " "
+					<< day << " "
+					<< month << " "
+					<< year << " "
+					<< hour << " "
+					<< min << " "
+					<< sec << " " 
+					<< "ReturnSucessful"
+					<< "\n\n";
+				cout<<"\nReturn book Sucessful\n\n";
+				break;	
 				
-				re_day = r_day;
-				re_month = r_month;
-				re_year = r_year;
-				if(re_month == 1 || re_month == 3 || re_month == 5 ||
-				re_month == 7 || re_month == 8 || re_month == 10 ||
-				re_month == 12 )
-				{
-					re_day += 5;
-					if (re_day > 31)
-					{
-						re_day -= 31;
-						re_month += 1;
-						if (re_month > 12)
-						{
-							re_month = 1;
-							re_year += 1;
-						}
-					}
-				
-				}else if (re_month == 4 || re_month == 6 || re_month == 9 
-				|| re_month == 11)
-				{
-					re_day = r_day;
-					re_month = r_month;
-					re_year = r_year;
-					re_day += 5;
-					if (re_day > 30)
-					{
-						re_day -= 30;
-						re_month += 1;
-						if (re_month > 12)
-						{
-							re_month = 1;
-							re_year += 1;
-						}	
-					}
-				}else if (re_month == 2)
-				{
-					re_day = r_day;
-					re_month = r_month;
-					re_year = r_year;
-					re_day += 5;
-					if (re_day > 28)
-					{
-						re_day -= 28;
-						re_month += 1;
-						if (re_month > 12)
-						{
-							re_month = 1;
-							re_year += 1;
-						}
-					}
-				}
-				
-				if (day <= re_day || day >=re_day && month <= re_month)
-				{
-					if (year <= re_year)
-					{
-						file1 << " "  << name << " "
-						<< b_id << " " << b_name 
-						<< " " << a_name << " "
-						<< day << " " << month
-						<< " " << year << " "
-						<< "Return Suscessful"
-						<< " " << "\n\n";
-						cout<<"\nReturn book Sucessful\n\n";
-						break;
-					} 
-				}		
-			}else
-				cout<<"ERROR";
+						
+			}
+			if(List_id == count&&count1 == count){
+					cout<< "\nThis book has been returned.";
+					break;	
+			}
 			
-			file >> name >> b_idd;
-			file >> b_name >> a_name;
-			file >> r_day >> r_month;
-			file >> r_year;
+			file >> count >> re_name;
+			file >> re_bid >> re_bname;
+			file >> re_aname >> re_day;
+			file >> re_month >> re_year;
+			file >> re_hour >> re_min;
+			file >> re_sec;
+			
+			file2 >> count1 >> re_name1;
+			file2 >> re_bid1 >> re_bname1;
+			file2 >> re_aname1 >> re_day1;
+			file2 >> re_month1 >> re_year1;
+			file2 >> re_hour1 >> re_min1;
+			file2 >> re_sec1 >> text;
 
 		}
 		file.close();
 		file1.close();
-		file.open(name+"_borrow.txt", ios::in);
-		file2.open(name+"_borrow1.txt",ios::app | ios::out);
-		if (!file){
-		cout << "\n\nFile Opening Error!";
-		}else {
-			string buser,bname,aname;
-			int bid,bday,bmonth,byear;
-			file >> buser >> b_idd;
-			file >> bname >> aname;
-    		file >> bday >> bmonth;
-			file >> byear;
-			while (!file.eof()) 
-			{
-				if (b_id == b_idd && b_day == r_day && b_month == r_month && b_year == r_year) 
-				{
-					file2 << " "<< name << " " 
-						<< b_id << " "
-						<< bname << " "
-						<< aname << " " 
-						<< bday << " " 
-						<< bmonth << " " 
-						<< byear << " " << "Return Sucessful"
-						<< "\n\n";
-				}
-				else
-					file2 << " "<< buser << " " 
-						<< b_idd << " "
-						<< bname << " "
-						<< aname << " " 
-						<< bday << " " 
-						<< bmonth << " " 
-						<< byear << " "
-						<< "\n\n";
-				file >> buser >> b_idd;
-				file >> bname >> aname;
-				file >> bday >> bmonth;
-				file >> byear;
-			}
-		}
+		file2.close();
 	}
-	cout << endl;
-	file.close();
-	file2.close();
-	string text1,text2;
-	text1 = name+"_borrow.txt";
-	text2 = name+"_borrow1.txt";
-	remove(text1.c_str());
-	rename(text2.c_str(),
-		   text1.c_str());
+	
 	
 }
 
@@ -900,37 +994,46 @@ void show_book_all(){
 void show_borrow_book(string name){
 	system( "cls" );
 	fstream file;
-	int no_copy;
-	string b_name, b_id, a_name,b_status;
-	string trem;
-	string day,month,year;
+	string re_name,re_bid,re_bname,re_aname;
+	int re_day,re_month,re_year,re_hour,re_min,re_sec;
+	int count;
 	
 	cout << "\n\n\t\t\t\t\tAll BOOKS IS BORROW";
 
-	file.open(trem=name+"_borrow.txt", ios::in);
+	file.open(name+"_show_borrow.txt", ios::in);
 	if (!file)
 		cout << "\n\nFile Opening Error!";
 	else {
 
-		cout << "\n\n\nname\t\tBook ID\t\tBook"
-			 << "\t\tAuthor\t\t   Date"
+		cout << "\n\n\nLIST\t\tname\t\tBook ID\t\tBook"
+			 << "\t\tAuthor\t\t   Date\t\t  TIME"
 				"\n\n";
-		file >> name >> b_id >> b_name;
-		file >> a_name >> day ;
-		file >> month  >> year;
+		file >> count >> re_name;
+		file >> re_bid >> re_bname;
+		file >> re_aname >> re_day;
+		file >> re_month >> re_year;
+		file >> re_hour >> re_min;
+		file >> re_sec;
+		
 		// Till end of file is reached
 		while (!file.eof()) {
-			cout << " " << name
-				<< "\t\t" << b_id
-				<< "\t\t" << b_name
-				<< "\t\t" << a_name
-				<< "\t\t" << day <<"/"
-				<< month <<"/"<< year
+			cout << " " << count
+				<< "\t\t" << re_name
+				<< "\t\t" << re_bid
+				<< "\t\t" << re_bname
+				<< "\t\t" << re_aname
+				<< "\t\t" << re_day <<"/"
+				<< re_month <<"/"<< re_year
+				<< "\t" << re_hour << ":" 
+				<< re_min << ":" << re_sec
 				<< "\n\n";
 
-			file >> name >> b_id >> b_name;
-			file >> a_name >> day;
-			file >> month >> year;
+			file >> count >> re_name;
+			file >> re_bid >> re_bname;
+			file >> re_aname >> re_day;
+			file >> re_month >> re_year;
+			file >> re_hour >> re_min;
+			file >> re_sec;
 		}
 		system( "pause" );
 		// Close the file
@@ -942,49 +1045,60 @@ void show_borrow_book(string name){
 void show_borrow_book1(string name){
 	system( "cls" );
 	fstream file;
-	int no_copy;
-	string b_name, b_id, a_name,b_status;
-	string trem;
-	string day,month,year;
+	string re_name,re_bid,re_bname,re_aname;
+	int re_day,re_month,re_year,re_hour,re_min,re_sec;
+	int count;
+	
 	cout << "\n\n\t\t\t\t\tAll BOOKS IS BORROW";
 
-	file.open(trem=name+"_borrow.txt", ios::in);
+	file.open(name+"_show_borrow.txt", ios::in);
 	if (!file)
 		cout << "\n\nFile Opening Error!";
 	else {
 
-		cout << "\n\n\nname\t\tBook ID\t\tBook"
-			 << "\t\tAuthor\t\t   Date"
+		cout << "\n\n\nLIST\t\tname\t\tBook ID\t\tBook"
+			 << "\t\tAuthor\t\t   Date\t\t  TIME"
 				"\n\n";
-		file >> name >> b_id >> b_name;
-		file >> a_name >> day ;
-		file >> month  >> year;
+		file >> count >> re_name;
+		file >> re_bid >> re_bname;
+		file >> re_aname >> re_day;
+		file >> re_month >> re_year;
+		file >> re_hour >> re_min;
+		file >> re_sec;
+		
 		// Till end of file is reached
 		while (!file.eof()) {
-			cout << " " << name
-				<< "\t\t" << b_id
-				<< "\t\t" << b_name
-				<< "\t\t" << a_name
-				<< "\t\t" << day <<"/"
-				<< month <<"/"<< year
+			cout << " " << count
+				<< "\t\t" << re_name
+				<< "\t\t" << re_bid
+				<< "\t\t" << re_bname
+				<< "\t\t" << re_aname
+				<< "\t\t" << re_day <<"/"
+				<< re_month <<"/"<< re_year
+				<< "\t" << re_hour << ":" 
+				<< re_min << ":" << re_sec
 				<< "\n\n";
 
-			file >> name >> b_id >> b_name;
-			file >> a_name >> day;
-			file >> month >> year;
+			file >> count >> re_name;
+			file >> re_bid >> re_bname;
+			file >> re_aname >> re_day;
+			file >> re_month >> re_year;
+			file >> re_hour >> re_min;
+			file >> re_sec;
 		}
+		
 		// Close the file
 		file.close();
 	}
 }
+
 void show_return_book(string name){
 	system( "cls" );
 	fstream file;
-	int no_copy;
-	string b_name, b_id, a_name,b_status;
-	string trem;
-	string day,month,year;
-	string text1,text2;
+	string re_name,re_bid,re_bname,re_aname;
+	int re_day,re_month,re_year,re_hour,re_min,re_sec;
+	int count;
+	string text;
 	cout << "\n\n\t\t\t\t\tAll BOOKS IS BORROW";
 
 	file.open(name+"_return_book.txt", ios::in);
@@ -992,31 +1106,37 @@ void show_return_book(string name){
 		cout << "\n\nFile Opening Error!";
 	else {
 
-		cout << "\n\n\nUSERNAME\tBook ID\t\tBook"
-			 << "\t\tAuthor\t\tDate"
-			 << "\t\t\tStatus"
+		cout << "\n\n\nLIST\t\tNAME\t\tBook ID\t\tBook"
+			 << "\t\tAuthor\t\t   Date\t\t  TIME\t\t   Status"
 				"\n\n";
-		file >> name >> b_id >> b_name;
-		file >> a_name >> day ;
-		file >> month  >> year;
-		file >> text1 >> text2;
+		file >> count >> re_name;
+		file >> re_bid >> re_bname;
+		file >> re_aname >> re_day;
+		file >> re_month >> re_year;
+		file >> re_hour >> re_min;
+		file >> re_sec >> text;
+		
 		// Till end of file is reached
 		while (!file.eof()) {
-			cout << " " << name
-				<< "\t\t" << b_id
-				<< "\t\t" << b_name
-				<< "\t\t" << a_name
-				<< "\t\t" << day <<"/"
-				<< month <<"/"<< year
-				<< " " << "\t\t"
-				<< text1 <<" "
-				<< text2
+			cout << " " << count
+				<< "\t\t" << re_name
+				<< "\t\t" << re_bid
+				<< "\t\t" << re_bname
+				<< "\t\t" << re_aname
+				<< "\t\t" << re_day <<"/"
+				<< re_month <<"/"<< re_year
+				<< "\t" << re_hour << ":" 
+				<< re_min << ":" << re_sec
+				<< "\t" << text
 				<< "\n\n";
 
-			file >> name >> b_id >> b_name;
-			file >> a_name >> day;
-			file >> month >> year;
-			file >> text1 >> text2;
+			file >> count >> re_name;
+			file >> re_bid >> re_bname;
+			file >> re_aname >> re_day;
+			file >> re_month >> re_year;
+			file >> re_hour >> re_min;
+			file >> re_sec >> text;
+			
 		}
 		system( "pause" );
 		// Close the file
@@ -1024,6 +1144,7 @@ void show_return_book(string name){
 	}
 
 }
+
 void show_all_user(){
 	system( "cls" );
 	fstream file;
@@ -1057,6 +1178,7 @@ void show_all_user(){
 	}
 
 }
+
 void menu_update(){
 	int choice;
 	char x;
@@ -1090,6 +1212,7 @@ void menu_update(){
 	}
 	                    
 }
+
 void update_status_book()
 {
 	system("cls");
@@ -1154,6 +1277,7 @@ void update_status_book()
 		   "book.txt");
 
 }
+
 void update_stock_book()
 {
 	system("cls");
