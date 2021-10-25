@@ -516,9 +516,8 @@ void user_menu()
 	cout << "\n2. RETURN BOOKS";
 	cout << "\n3. SHOW BORROW BOOKS";
 	cout << "\n4. SHOW RETURN BOOKS";
-	
-	cout << "\n6. MENU";
-	cout << "\n7. EXIT";
+	cout << "\n5. MENU";
+	cout << "\n6. EXIT";
 
 }
 
@@ -569,12 +568,9 @@ void book_borrowed_menu(string name)
 			break;
 
 		case 5:
-			del_book();
-			break;
-		case 6:
 			main_menu();
 			break;
-		case 7:
+		case 6:
 			exit(0);
 			break;
 
@@ -882,6 +878,63 @@ void return_books(string name)
 	file1.open(name+"_return_book.txt",ios::out | ios::app);
 	file2.open(name+"_return_book.txt",ios::in);
 
+	//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	
+	r_day = re_day;
+	r_month = re_month;
+	r_year = re_year;
+	if(r_month == 1 || r_month == 3 || r_month == 5 ||
+		r_month == 7 || r_month == 8 || r_month == 10 ||
+		r_month == 12 )
+	{
+		r_day += 5;
+		if (r_day > 31)
+		{
+			r_day -= 31;
+			r_month += 1;
+			if (r_month > 12)
+			{
+				r_month = 1;
+				r_year += 1;
+			}
+		}
+				
+	}else if (r_month == 4 || r_month == 6 || r_month == 9 
+			|| r_month == 11)
+	{
+		r_day = r_day;
+		r_month = r_month;
+		r_year = r_year;
+		r_day += 5;
+		if (r_day > 30)
+		{
+			r_day -= 30;
+			r_month += 1;
+			if (r_month > 12)
+			{
+				r_month = 1;
+				r_year += 1;
+			}	
+		}
+	}else if (r_month == 2)
+	{
+		r_day = r_day;
+		r_month = r_month;
+		r_year = r_year;
+		r_day += 5;
+		if (r_day > 28)
+		{
+			r_day -= 28;
+			r_month += 1;
+			if (r_month > 12)
+			{
+				r_month = 1;
+				r_year += 1;
+			}
+		}
+	}
+
+	//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	if(!file)
 	{
 		cout << "\n\nFile Opening Error!";
@@ -1239,10 +1292,23 @@ void update_status_book()
 		// Till end of file is reached
 		while (!file.eof()) {
 			if (b_id == b_idd) {
+
 				system("cls");
 				cout << "\t\t\t\t"
 					 << "Update Book Record";
-				cout << "\nBook Status : ";
+				cout << "\n\nBook ID : "
+					<< b_id;
+				cout << "\nName : "
+					<< b_name;
+				cout << "\nAuthor : "
+					<< a_name;
+				cout << "\nNo. of Books : "
+					<< no_copy;
+        		cout << "\nBook Status : "
+          			<< b_status;
+				cout << endl
+					<< endl;
+				cout << "\nBook Status Update : ";
 				cin >> b_st;
 				file1 << " " << b_idd << " "
 					<< b_name << " "
@@ -1307,6 +1373,18 @@ void update_stock_book()
 				system("cls");
 				cout << "\t\t\t\t"
 					 << "Update Book Record";
+				cout << "\n\nBook ID : "
+					<< b_id;
+				cout << "\nName : "
+					<< b_name;
+				cout << "\nAuthor : "
+					<< a_name;
+				cout << "\nNo. of Books : "
+					<< no_copy;
+        		cout << "\nBook Status : "
+          			<< b_status;
+				cout << endl
+					<< endl;
 				cout << "\nNo. of Books : ";
 				cin >> no_co;
 				file1 << " " << b_idd << " "
