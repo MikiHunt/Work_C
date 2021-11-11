@@ -880,74 +880,100 @@ void return_books(string name)
 
 	//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	
-	r_day = re_day;
-	r_month = re_month;
-	r_year = re_year;
-	if(r_month == 1 || r_month == 3 || r_month == 5 ||
-		r_month == 7 || r_month == 8 || r_month == 10 ||
-		r_month == 12 )
-	{
-		r_day += 5;
-		if (r_day > 31)
-		{
-			r_day -= 31;
-			r_month += 1;
-			if (r_month > 12)
-			{
-				r_month = 1;
-				r_year += 1;
-			}
-		}
-				
-	}else if (r_month == 4 || r_month == 6 || r_month == 9 
-			|| r_month == 11)
-	{
-		r_day = r_day;
-		r_month = r_month;
-		r_year = r_year;
-		r_day += 5;
-		if (r_day > 30)
-		{
-			r_day -= 30;
-			r_month += 1;
-			if (r_month > 12)
-			{
-				r_month = 1;
-				r_year += 1;
-			}	
-		}
-	}else if (r_month == 2)
-	{
-		r_day = r_day;
-		r_month = r_month;
-		r_year = r_year;
-		r_day += 5;
-		if (r_day > 28)
-		{
-			r_day -= 28;
-			r_month += 1;
-			if (r_month > 12)
-			{
-				r_month = 1;
-				r_year += 1;
-			}
-		}
-	}
-
-	//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-	if(!file)
-	{
+	if(!file){
 		cout << "\n\nFile Opening Error!";
 	}else{
 		cout << "\n\nList Borrow Book ID : ";
 		cin >> List_id;
-		
+
 		file >> count >> re_name;
 		file >> re_bid >> re_bname;
 		file >> re_aname >> re_day;
 		file >> re_month >> re_year;
 		file >> re_hour >> re_min;
 		file >> re_sec;
+		while (!file.eof())
+		{
+			if(List_id == count){
+				r_day = re_day;
+				r_month = re_month;
+				r_year = re_year;
+				if(r_month == 1 || r_month == 3 || r_month == 5 ||
+					r_month == 7 || r_month == 8 || r_month == 10 ||
+					r_month == 12 )
+				{
+					r_day += 5;
+					if (r_day > 31)
+					{
+						r_day -= 31;
+						r_month += 1;
+						if (r_month > 12)
+						{
+							r_month = 1;
+							r_year += 1;
+						}
+					}
+							
+				}else if (r_month == 4 || r_month == 6 || r_month == 9 
+						|| r_month == 11)
+				{
+					r_day = r_day;
+					r_month = r_month;
+					r_year = r_year;
+					r_day += 5;
+					if (r_day > 30)
+					{
+						r_day -= 30;
+						r_month += 1;
+						if (r_month > 12)
+						{
+							r_month = 1;
+							r_year += 1;
+						}	
+					}
+				}else if (r_month == 2)
+				{
+					r_day = r_day;
+					r_month = r_month;
+					r_year = r_year;
+					r_day += 5;
+					if (r_day > 28)
+					{
+						r_day -= 28;
+						r_month += 1;
+						if (r_month > 12)
+						{
+							r_month = 1;
+							r_year += 1;
+						}
+					}
+				}
+				break;
+			}
+
+
+			file >> count >> re_name;
+			file >> re_bid >> re_bname;
+			file >> re_aname >> re_day;
+			file >> re_month >> re_year;
+			file >> re_hour >> re_min;
+			file >> re_sec;
+		}
+		
+		
+
+	}
+
+	cout << r_day << " " << r_month << " " << r_year ;
+
+	//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	if(!file)
+	{
+		cout << "\n\nFile Opening Error!";
+	}else{
+		
+		
+		
 
 		file2 >> count1 >> re_name1;
 		file2 >> re_bid1 >> re_bname1;
@@ -955,9 +981,10 @@ void return_books(string name)
 		file2 >> re_month1 >> re_year1;
 		file2 >> re_hour1 >> re_min1;
 		file2 >> re_sec1 >> text;
+
 		while (!file.eof())
 		{
-			if (List_id == count && count1 != count)
+			if (List_id == count && count1 != count && day <= r_day || day >= r_day && month <= r_month && year <= r_year )
 			{
 				file1<< " " <<  count << " "
 					<< re_name << " " 

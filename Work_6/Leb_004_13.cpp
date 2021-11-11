@@ -14,13 +14,13 @@ int main()
 		/* calculate factorial of number */
 		if (Number >= 0) {
 			long Fac = 1;
-		if (Number > 0) {
- 			Count = 1;
-			while (Count <= Number) Fac *= Count++;
- 			cout << "\nFactorial of " << Number << " = ";
-			cout << Fac << endl<<Count;
- 		}
-	}
+			if (Number > 0) {
+				Count = 1;
+				while (Count <= Number) Fac *= Count++;
+				cout << "\nFactorial of " << Number << " = ";
+				cout << Fac << endl<<Count;
+			}
+		}
 return(0);
 }
 

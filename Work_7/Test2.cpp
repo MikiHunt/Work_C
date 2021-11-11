@@ -14,7 +14,7 @@ int main(){
    		}else{
     		cout<<"Prnme";
 		}
-		cout<<"\n\nEnter std ExitProgram null : ";
+		cout<<"\n\nEnter std ExitProgram n : ";
 		cin>>str;
 		system ("CLS");
 	}while(str !="n");
