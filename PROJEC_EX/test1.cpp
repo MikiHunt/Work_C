@@ -332,6 +332,15 @@ void update_book()
 			if (b_id == b_idd) {
 				system("cls");
 				cout << "\t\t\t\t"
+					<< "BOOK STAIUS" ;
+				cout << "\nBOOK ID : " << b_idd;
+				cout << "\nBOOK NAME : " << b_name;
+				cout << "\nAUTHOR NAME : " << a_name;
+				cout << "\nNO. OF BOOK : " << no_copy;
+				cout << "\nBOOK STATUS : " << b_status;
+				cout << "\n\n";
+				
+				cout << "\t\t\t\t"
 					 << "Update Book Record";
 				cout << "\n\nNew Book Name : ";
 				cin >> b_na;
@@ -610,6 +619,7 @@ void book_borrowed_menu(string name)
 		}
 	}
 }
+
 void borrow_books(string name)
 {	
 	system("cls");
@@ -855,6 +865,7 @@ void borrow_books(string name)
 	rename("book1.txt",
 		   "book.txt");
 }
+
 void sortdata (int total[] , int count){
 	int temp1;
     for(int i=0;i<count;i++)
@@ -870,6 +881,7 @@ void sortdata (int total[] , int count){
 			}
 		}
 }
+
 void return_books(string name)
 {
 	show_borrow_book1(name);
@@ -1411,7 +1423,6 @@ void show_all_user(){
 
 void menu_update(){
 	int choice;
-	char x;
 	
 	while (1) {
 		system("cls");
@@ -1420,7 +1431,7 @@ void menu_update(){
 		cout << "\n2. UPDATE BOOK STATUS";
 		cout << "\n3. UPDATE BOOK STOCK";
 		cout << "\n4. ADMIN MENU";
-			cout << "\nEnter your choice : ";
+		cout << "\nEnter your choice : ";
 		cin >> choice;
 		switch (choice) {
 
