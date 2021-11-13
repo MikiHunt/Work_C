@@ -20,6 +20,7 @@ void registr();
 void user_menu();
 void book_borrowed_menu(string name);
 void borrow_books(string name);
+void sortdata (int total[] , int count);
 void return_books(string name);
 void check_borrow_book();
 void show_book_all();
@@ -31,7 +32,7 @@ void show_all_user();
 void menu_update();
 void update_status_book();
 void update_stock_book();
-void sortdata (int total[] , int count);
+
 
 int main () 
 {	
