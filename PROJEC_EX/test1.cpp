@@ -3,7 +3,7 @@
 #include <string>
 #include <sstream>
 #include <ctime>
-
+#include<iomanip>
 using namespace std;
 
 void main_menu();
@@ -32,7 +32,7 @@ void show_all_user();
 void menu_update();
 void update_status_book();
 void update_stock_book();
-
+void exit();
 
 int main () 
 {	
@@ -65,6 +65,7 @@ void main_menu()
 			admin_login();
 			break;
 		case 4:
+			exit(0);
 			break;
   		default:
     		cout << "\n\nINVALID CHOICE\n";
@@ -72,6 +73,9 @@ void main_menu()
 			main_menu();
 			
   	}
+}
+void exit(){
+
 }
 
 void login()
@@ -163,10 +167,10 @@ void admin_control_panel()
 	cout << "\n\n\t\t\t\tADMIN MENU";
 	cout << "\n\n1. ADD BOOK";
 	cout << "\n2. DISPLAY BOOKS";
-	cout << "\n3. CHECK PARTICULAR BOOK";
-	cout << "\n4. MENU UPDATE";
-	cout << "\n5. DELETE BOOK";
-	cout << "\n6. ALL USER";
+	cout << "\n3. ALL USER";
+	cout << "\n4. CHECK PARTICULAR BOOK";
+	cout << "\n5. MENU UPDATE";
+	cout << "\n6. DELETE BOOK";
 	cout << "\n7. MENU";
 	cout << "\n8. EXIT";
 }
@@ -220,8 +224,8 @@ void show_book()
 	else {
 
 		cout << "\n\n\nBook ID\t\tBook"
-			 << "\t\tAuthor\t\tNo. of "
-				"Books\t\tStatus\n\n";
+			 << "\t\t\t\t\t\t\t Author\t\t\t    No. of "
+				"Books\t      Status\n\n";
 		file >> b_id >> b_name;
 		file >> a_name >> no_copy;
     	file >> b_status;
@@ -229,10 +233,10 @@ void show_book()
 		// Till end of file is reached
 		while (!file.eof()) {
 
-			cout << " " << b_id
-				<< "\t\t" << b_name
-				<< "\t\t" << a_name
-				<< "\t\t" << no_copy
+			cout << setw(5) << left << setw(15) << b_id
+				<< left << setw(28) << b_name
+				<< left << setw(5) << "\t\t\t\t" << a_name
+				<< "\t\t\t" << no_copy
         		<< "\t\t\t" << b_status
 				<< "\n\n";
 			file >> b_id >> b_name;
@@ -469,17 +473,18 @@ void bookShopRecord()
 			break;
 
 		case 3:
-			check_book();
+			show_all_user();
+			
 			break;
 		case 4:
-			menu_update();
+			check_book();
 			break;
 
 		case 5:
-			del_book();
+			menu_update();
 			break;
 		case 6:
-			show_all_user();
+			del_book();
 			
 			break;
 		case 7:
@@ -614,7 +619,6 @@ void book_borrowed_menu(string name)
 		case 7:
 			exit(0);
 			break;
-
 		default:
 			cout << "\n\nINVALID CHOICE\n";
 		}
@@ -924,7 +928,7 @@ void return_books(string name)
 	}else{
 		cout << "\n\nList Borrow Book ID : ";
 		cin >> List_id;
-
+		cout << "\n\n";
 		file >> count >> re_name;
 		file >> re_bid >> re_bname;
 		file >> re_aname >> re_day;
@@ -1006,8 +1010,6 @@ void return_books(string name)
 	file.open(name+"_show_borrow.txt",ios::in);
 	fstream file3 ;
 	file3.open(name+"_return_book_late.txt",ios::out | ios::app);
-	cout << r_day << " " << r_month << " " << r_year << "\n" ;
-	cout << day << " " << month << " " << year << "\n" ;
 
 	//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	if(!file2)
@@ -1153,18 +1155,18 @@ void show_book_all(){
 	else {
 
 		cout << "\n\n\nBook ID\t\tBook"
-			 << "\t\tAuthor\t\tNo. of "
-				"Books\t\tStatus\n\n";
+			 << "\t\t\t\t\t\t\t Author\t\t\t    No. of "
+				"Books\t      Status\n\n";
 		file >> b_id >> b_name;
 		file >> a_name >> no_copy;
     	file >> b_status;
 
 		// Till end of file is reached
 		while (!file.eof()) {
-			cout << " " << b_id
-				<< "\t\t" << b_name
-				<< "\t\t" << a_name
-				<< "\t\t" << no_copy
+			cout << setw(5) << left << setw(15) << b_id
+				<< left << setw(28) << b_name
+				<< left << setw(5) << "\t\t\t\t" << a_name
+				<< "\t\t\t" << no_copy
         		<< "\t\t\t" << b_status
 				<< "\n\n";
 			file >> b_id >> b_name;
@@ -1193,7 +1195,7 @@ void show_borrow_book(string name){
 	else {
 
 		cout << "\n\n\nLIST\t\tname\t\tBook ID\t\tBook"
-			 << "\t\tAuthor\t\t   Date\t\t  TIME"
+			 << "\t\t   Author\t\t  Date\t\t  TIME"
 				"\n\n";
 		file >> count >> re_name;
 		file >> re_bid >> re_bname;
@@ -1204,12 +1206,13 @@ void show_borrow_book(string name){
 		
 		// Till end of file is reached
 		while (!file.eof()) {
-			cout << " " << count
-				<< "\t\t" << re_name
-				<< "\t\t" << re_bid
-				<< "\t\t" << re_bname
-				<< "\t\t" << re_aname
-				<< "\t\t" << re_day <<"/"
+			
+			cout << left <<setw(15) << count
+				<< left << setw(17)<< re_name
+				<< left << setw(16) << re_bid
+				<< left << setw(20) << re_bname
+				<< left << setw(20)<< re_aname
+				<< re_day <<"/"
 				<< re_month <<"/"<< re_year
 				<< "\t" << re_hour << ":" 
 				<< re_min << ":" << re_sec
@@ -1242,10 +1245,10 @@ void show_borrow_book1(string name){
 	if (!file)
 		cout << "\n\nFile Opening Error!";
 	else {
-
 		cout << "\n\n\nLIST\t\tname\t\tBook ID\t\tBook"
-			 << "\t\tAuthor\t\t   Date\t\t  TIME"
+			 << "\t\t   Author\t\t  Date\t\t  TIME"
 				"\n\n";
+		
 		file >> count >> re_name;
 		file >> re_bid >> re_bname;
 		file >> re_aname >> re_day;
@@ -1255,16 +1258,17 @@ void show_borrow_book1(string name){
 		
 		// Till end of file is reached
 		while (!file.eof()) {
-			cout << " " << count
-				<< "\t\t" << re_name
-				<< "\t\t" << re_bid
-				<< "\t\t" << re_bname
-				<< "\t\t" << re_aname
-				<< "\t\t" << re_day <<"/"
+			cout << left <<setw(15) << count
+				<< left << setw(17)<< re_name
+				<< left << setw(16) << re_bid
+				<< left << setw(20) << re_bname
+				<< left << setw(20)<< re_aname
+				<< re_day <<"/"
 				<< re_month <<"/"<< re_year
 				<< "\t" << re_hour << ":" 
 				<< re_min << ":" << re_sec
 				<< "\n\n";
+			
 
 			file >> count >> re_name;
 			file >> re_bid >> re_bname;
@@ -1286,16 +1290,16 @@ void show_return_book(string name){
 	int re_day,re_month,re_year,re_hour,re_min,re_sec;
 	int count;
 	string text;
-	cout << "\n\n\t\t\t\t\tAll BOOKS IS BORROW";
+	cout << "\n\n\t\t\t\t\tAll BOOKS IS BORROW RETURN";
 
 	file.open(name+"_return_book.txt", ios::in);
 	if (!file)
 		cout << "\n\nFile Opening Error!";
 	else {
-
-		cout << "\n\n\nLIST\t\tNAME\t\tBook ID\t\tBook"
-			 << "\t\tAuthor\t\t   Date\t\t  TIME\t\t   Status"
+		cout << "\n\n\nLIST\t\tname\t\tBook ID\t\tBook"
+			 << "\t\t   Author\t\t  Date\t\t  TIME\t\t        Status"
 				"\n\n";
+
 		file >> count >> re_name;
 		file >> re_bid >> re_bname;
 		file >> re_aname >> re_day;
@@ -1305,16 +1309,17 @@ void show_return_book(string name){
 		
 		// Till end of file is reached
 		while (!file.eof()) {
-			cout << " " << count
-				<< "\t\t" << re_name
-				<< "\t\t" << re_bid
-				<< "\t\t" << re_bname
-				<< "\t\t" << re_aname
-				<< "\t\t" << re_day <<"/"
+			
+			cout << left <<setw(15) << count
+				<< left << setw(17)<< re_name
+				<< left << setw(15) << re_bid
+				<< left << setw(20) << re_bname
+				<< left << setw(21)<< re_aname
+				<< re_day <<"/"
 				<< re_month <<"/"<< re_year
-				<< "\t" << re_hour << ":" 
+				<< "\t " << re_hour << ":" 
 				<< re_min << ":" << re_sec
-				<< "\t" << text
+				<< "\t\t" << text
 				<< "\n\n";
 
 			file >> count >> re_name;
@@ -1339,16 +1344,16 @@ void show_return_book_late(string name){
 	int re_day,re_month,re_year,re_hour,re_min,re_sec;
 	int count,price;
 	string text;
-	cout << "\n\n\t\t\t\t\tAll BOOKS IS BORROW";
+	cout << "\n\n\t\t\t\t\tAll BOOKS IS RETURN LATE";
 
 	file.open(name+"_return_book_late.txt", ios::in);
 	if (!file)
 		cout << "\n\nFile Opening Error!";
 	else {
-
-		cout << "\n\n\nLIST\t\tNAME\t\tBook ID\t\tBook"
-			 << "\t\tAuthor\t\t   Date\t\t  TIME\t\t   waste of time\t\tStatus"
+		cout << "\n\n\nLIST\t\tname\t\tBook ID\t\tBook"
+			 << "\t\t   Author\t\t  Date\t\t  TIME\t\t   waste of time\t\tStatus"
 				"\n\n";
+		
 		file >> count >> re_name;
 		file >> re_bid >> re_bname;
 		file >> re_aname >> re_day;
@@ -1359,16 +1364,17 @@ void show_return_book_late(string name){
 		
 		// Till end of file is reached
 		while (!file.eof()) {
-			cout << " " << count
-				<< "\t\t" << re_name
-				<< "\t\t" << re_bid
-				<< "\t\t" << re_bname
-				<< "\t\t" << re_aname
-				<< "\t\t" << re_day <<"/"
+			
+			cout << left <<setw(15) << count
+				<< left << setw(17)<< re_name
+				<< left << setw(16) << re_bid
+				<< left << setw(20) << re_bname
+				<< left << setw(20)<< re_aname
+				<< re_day <<"/"
 				<< re_month <<"/"<< re_year
 				<< "\t" << re_hour << ":" 
 				<< re_min << ":" << re_sec
-				<< "\t\t\t" << price
+				<< "\t\t" << price
 				<< "\t\t\t" << text
 				<< "\n\n";
 
@@ -1405,8 +1411,8 @@ void show_all_user(){
 		file >> user >> pass >> name >> surname >> birthday;
 		// Till end of file is reached
 		while (!file.eof()) {
-			cout << " " << user
-				<< "\t\t" << pass
+			cout << left << setw(16) << user
+				<< left << setw(5) << pass
 				<< "\t\t" << name
 				<< "\t\t" << surname
 				<< "\t\t" <<birthday
@@ -1445,6 +1451,7 @@ void menu_update(){
 			break;
 		case 3:
 			update_stock_book();
+			break;
 		case 4:
 			bookShopRecord();
 			break;

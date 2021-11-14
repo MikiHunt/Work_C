@@ -1,6 +1,110 @@
- 1 A A 11 N
+ 98754 Ironman1 StanLee 50 Y
 
- 2 A AA 28 Y
+ 95874 Ironman2 StanLee 40 Y
 
- 3 3 3 35 Y
+ 96325 Ironman3 Stanlee 60 Y
+
+ 35146 CaptainAmericaThefirstAverger StanLee 30 Y
+
+ 23579 CaptainAmericaTheWintersoldier StanLee 40 Y
+
+ 99853 CaptainAmericaCivilWar StanLee 100 Y
+
+ 85463 Thor1 StanLee 40 Y
+
+ 87315 ThorTheDarkWorld StanLee 40 Y
+
+ 94513 ThorRagnarok StanLee 60 Y
+
+ 98632 TheAvengers StanLee 100 Y
+
+ 94584 AvengerAgeOfUltron StanLee 200 Y
+
+ 96571 AvengersInfinityWar StanLee 300 Y
+
+ 99887 AvengersEndgame StanLee 500 Y
+
+ 95138 OnePiece1 EiichiroOda 1000 Y
+
+ 95438 OnePiece2 EiichiroOda 1000 Y
+
+ 92594 OnePiece3 EiichiroOda 1000 Y
+
+ 98521 OnePiece4 EiichiroOda 1000 Y
+
+ 95366 OnePiece5 EichiroOda 1000 Y
+
+ 99230 OnePiece6 EiichiroOda 1000 Y
+
+ 98882 OnePiece7 EiichiroOda 1000 Y
+
+ 81355 OnePiece8 EiichiroOda 1000 Y
+
+ 88521 OnePiece9 EiichiroOda 1000 Y
+
+ 82300 OnePiece10 EiichiroOda 1000 Y
+
+ 93211 OnePiece11 EichiroOda 1000 Y
+
+ 86540 OnePiece12 EiichiroOda 1000 Y
+
+ 97235 OnePiece13 EiichiroOda 1000 Y
+
+ 85445 OnePiece14 EiichiroOda 1000 Y
+
+ 93201 OnePiece15 EiichiroOda 1000 Y
+
+ 86300 OnePiece16 EiichiroOda 1000 Y
+
+ 96322 OnePiece17 EiichiroOda 1000 Y
+
+ 88521 OnePiece18 EiichiroOda 1000 Y
+
+ 88554 OnePiece19 EiichiroOda 1000 Y
+
+ 75124 OnePiece20 EiichiroOda 1000 Y
+
+ 85138 DragonballZ1 AkiraToriyama 1000 Y
+
+ 75213 DragonballZ2 AkiraToriyama 1000 Y
+
+ 78521 DragonballZ3 AkiraToriyama 1000 Y
+
+ 63251 DragonballZ4 AkiraToriyama 1000 Y
+
+ 63321 DragonballZ5 AkiraToriyama 1000 Y
+
+ 63257 DragonballZ6 AkiraToriyama 1000 Y
+
+ 96512 DragonballZ7 AkiraToriyama 1000 Y
+
+ 65813 DragonballZ8 AkiraToriyama 1000 Y
+
+ 69541 DragonballZ9 AkiraToriyama 1000 Y
+
+ 98513 DragonballZ10 AkiraToriyama 1000 Y
+
+ 53215 DragonballZ11 AkiraToriyama 1000 Y
+
+ 52368 DragonballZ12 AkiraToriyama 1000 Y
+
+ 85444 DragonballZ13 AkiraToriyama 1000 Y
+
+ 74125 DragonballZ14 AkiraToriyama 1000 Y
+
+ 87952 DragonballZ15 AkiraToriyama 1000 Y
+
+ 83322 DragonballZ16 AkiraToriyama 1000 Y
+
+ 88877 DragonballZ17 AkiraToriyama 1000 Y
+
+ 83654 DragonballZ18 AkiraToriyama 1000 Y
+
+ 82211 DragonballZ19 AkiraToriyama 999 Y
+
+ 83684 DragonballZ20 AkiraToriyama 1000 Y
+
+ 78213 DragonballZ21 AkiraToriyama 999 Y
+
+ 45987 DragonballZ22 AkiraToriyama 999 Y
 

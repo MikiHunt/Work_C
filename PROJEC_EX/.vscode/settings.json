@@ -2,6 +2,8 @@
     "files.associations": {
         "ctime": "cpp",
         "iostream": "cpp",
-        "*.tcc": "cpp"
+        "*.tcc": "cpp",
+        "ostream": "cpp",
+        "iomanip": "cpp"
     }
 }
